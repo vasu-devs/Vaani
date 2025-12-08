@@ -1,0 +1,63 @@
+Metadata-Version: 2.4
+Name: livekit-plugins-google
+Version: 1.3.6
+Summary: Agent Framework plugin for services from Google Cloud
+Project-URL: Documentation, https://docs.livekit.io
+Project-URL: Website, https://livekit.io/
+Project-URL: Source, https://github.com/livekit/agents
+Author: LiveKit
+License-Expression: Apache-2.0
+Keywords: ai,audio,gemini,google,livekit,realtime,video,voice
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Multimedia :: Sound/Audio
+Classifier: Topic :: Multimedia :: Video
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9.0
+Requires-Dist: google-auth<3,>=2
+Requires-Dist: google-cloud-speech<3,>=2
+Requires-Dist: google-cloud-texttospeech<3,>=2.27
+Requires-Dist: google-genai>=v1.47.0
+Requires-Dist: livekit-agents>=1.3.6
+Description-Content-Type: text/markdown
+
+# Google AI plugin for LiveKit Agents
+
+Support for Gemini, Gemini Live, Cloud Speech-to-Text, and Cloud Text-to-Speech.
+
+See [https://docs.livekit.io/agents/integrations/google/](https://docs.livekit.io/agents/integrations/google/) for more information.
+
+## Installation
+
+```bash
+pip install livekit-plugins-google
+```
+
+## Pre-requisites
+
+For credentials, you'll need a Google Cloud account and obtain the correct credentials. Credentials can be passed directly or via Application Default Credentials as specified in [How Application Default Credentials works](https://cloud.google.com/docs/authentication/application-default-credentials).
+
+To use the STT and TTS API, you'll need to enable the respective services for your Google Cloud project.
+
+- Cloud Speech-to-Text API
+- Cloud Text-to-Speech API
+
+## Live API model support
+
+LiveKit supports both Gemini Live API on both Gemini Developer API as well as Vertex AI. However, be aware they have slightly different behavior and use different model names.
+
+The following models are supported by Gemini Developer API:
+
+- gemini-2.0-flash-live-001
+- gemini-live-2.5-flash-preview
+- gemini-2.5-flash-native-audio-preview-09-2025
+
+And these on Vertex AI:
+
+- gemini-2.0-flash-exp
+- gemini-live-2.5-flash-preview-native-audio
+- gemini-live-2.5-flash-preview-native-audio-09-2025

@@ -1,0 +1,2 @@
+Call Log - 20251208_234722
+Transcript saving would go here (requires hooking into chat context).
