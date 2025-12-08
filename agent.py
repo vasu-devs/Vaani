@@ -1,6 +1,8 @@
 import logging
 import asyncio
 import os
+import json
+from datetime import datetime
 from dotenv import load_dotenv
 
 from livekit import agents, rtc
@@ -64,6 +66,54 @@ Do not use markdown. Speak clearly.
         await ctx.room.disconnect_future
     except:
         pass
+    finally:
+        await save_transcript(agent)
+
+async def save_transcript(agent: VoicePipelineAgent):
+    os.makedirs("call_logs", exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"call_logs/log_{timestamp}.json"
+    
+    # Extract metadata (simple mock for specific fields if needed, or just dump messages)
+    transcript = []
+    risk_score = 0 # Mock logic or analyze text
+    
+    for msg in agent.chat_ctx.messages:
+        # Avoid serializing non-serializable objects if any
+        # ChatMessage usually has role (enum) and content (str/list)
+        role_str = str(msg.role)
+        content = msg.content
+        if isinstance(content, list):
+            content = " ".join([str(c) for c in content])
+        
+        transcript.append({
+            "role": role_str,
+            "content": content,
+            "timestamp": datetime.now().isoformat() # Ideally capture real time if available
+        })
+        
+        # Simple keyword risk analysis
+        if "escalate" in str(content).lower() or "refuse" in str(content).lower():
+            risk_score += 20
+        if "sue" in str(content).lower() or "lawyer" in str(content).lower():
+            risk_score += 50
+            
+    # Normalize risk
+    risk_score = min(score for score in [risk_score] if True) # clean way to keep variable
+    risk_score = min(100, risk_score)
+
+    data = {
+        "id": f"call-{timestamp}",
+        "timestamp": timestamp,
+        "transcript": transcript,
+        "risk_score": risk_score,
+        "status": "completed"
+    }
+    
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=2)
+    
+    logger.info(f"Saved transcript to {filename}")
 
 if __name__ == "__main__":
     agents.cli.run_app(server)
