@@ -331,14 +331,18 @@ function App() {
                                         ATTORNEY REP
                                     </span>
                                 )}
-                                <span className={`px-3 py-1 rounded-full text-xs font-bold bg-white/10 border border-white/5 ${selectedLog.call_outcome === 'PTP' ? 'text-green-400' :
-                                    selectedLog.call_outcome === 'Refusal' ? 'text-red-400' : 'text-gray-300'
-                                    }`}>
-                                    {selectedLog.call_outcome || 'Pending'}
-                                </span>
-                                <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/5 text-blue-400 border border-white/5">
-                                    {selectedLog.matrix_quadrant || 'Analysing...'}
-                                </span>
+                                {selectedLog.call_outcome && (
+                                    <span className={`px-3 py-1 rounded-full text-xs font-bold bg-white/10 border border-white/5 ${selectedLog.call_outcome === 'PTP' ? 'text-green-400' :
+                                        selectedLog.call_outcome === 'Refusal' ? 'text-red-400' : 'text-gray-300'
+                                        }`}>
+                                        {selectedLog.call_outcome}
+                                    </span>
+                                )}
+                                {selectedLog.matrix_quadrant && (
+                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/5 text-blue-400 border border-white/5">
+                                        {selectedLog.matrix_quadrant}
+                                    </span>
+                                )}
                             </div>
                         )}
 
