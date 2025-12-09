@@ -1,0 +1,44 @@
+{
+  "id": "call-20251209_152609",
+  "timestamp": "20251209_152609",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "1500",
+    "agent_name": "Abhi",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hi, this is Abhi from RiverLine Bank. Am I speaking with Vasu?",
+      "timestamp": "2025-12-09T15:26:09.781861"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "No",
+    "call_outcome": "Hangup",
+    "risk_score": 50,
+    "matrix_quadrant": "Unclear",
+    "financial_profile": {
+      "employed": null,
+      "hardship_reason": null,
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": false,
+      "attorney_represented": false,
+      "cease_and_desist": false,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": null,
+      "promised_date": null
+    },
+    "agent_notes": "Initial contact unsuccessful, recommend retrying to establish communication.",
+    "generated_tags": []
+  },
+  "risk_score": 50,
+  "status": "completed"
+}

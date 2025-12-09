@@ -27,6 +27,25 @@ function App() {
     const [selectedLog, setSelectedLog] = useState(null);
     const [stats, setStats] = useState({ totalCalls: 0, avgRisk: 0, passRate: 0 });
 
+    // Helper to format date from call_id
+    const formatCallIdDate = (callId) => {
+        if (!callId) return 'N/A';
+        // Match call-YYYYMMDD_HHmmss
+        const match = callId.match(/call-(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/);
+        if (!match) return callId;
+
+        const [_, y, m, d, h, min] = match;
+        const date = new Date(y, m - 1, d, h, min);
+        // Returns "Dec 09, 15:18"
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        });
+    };
+
     useEffect(() => {
         fetchHistory();
         const interval = setInterval(fetchHistory, 5000);
@@ -41,11 +60,36 @@ function App() {
             // Calculate stats
             const total = res.data.length;
             const totalRisk = res.data.reduce((acc, log) => acc + (log.risk_score || 0), 0);
+
+            // Calculate Pass Rate (PTP or Callback)
+            const passed = res.data.filter(l => l.call_outcome === 'PTP' || l.call_outcome === 'Callback_Requested').length;
+
             setStats({
                 totalCalls: total,
                 avgRisk: total ? (totalRisk / total).toFixed(1) : 0,
-                passRate: 'N/A'
+                passRate: total ? Math.round((passed / total) * 100) + '%' : '0%'
             });
+
+            // FIX: Auto-update selected log if meaningful data changed (Real-time badges)
+            setSelectedLog(prev => {
+                if (!prev) return null;
+                const freshLog = res.data.find(l => l.id === prev.id);
+
+                if (freshLog) {
+                    // Check for changes in Risk, Outcome, or Flags
+                    const hasChanged =
+                        freshLog.risk_score !== prev.risk_score ||
+                        freshLog.call_outcome !== prev.call_outcome ||
+                        JSON.stringify(freshLog.legal_flags) !== JSON.stringify(prev.legal_flags) ||
+                        freshLog.matrix_quadrant !== prev.matrix_quadrant;
+
+                    if (hasChanged) {
+                        return freshLog; // Update view silently
+                    }
+                }
+                return prev; // Keep existing state if no change
+            });
+
         } catch (err) {
             console.error("Failed to fetch history", err);
         }
@@ -239,7 +283,7 @@ function App() {
                                     </div>
                                     <div className="text-xs text-gray-500 flex justify-between">
                                         <span>{log.id}</span>
-                                        <span>{new Date(log.timestamp.replace('_', ' ').replace(/(\d{8}) (\d{6})/, '$1 $2')).toLocaleTimeString()}</span>
+                                        <span className="font-mono text-gray-400">{formatCallIdDate(log.id)}</span>
                                     </div>
                                 </div>
                             ))}
@@ -259,6 +303,53 @@ function App() {
                                 </span>
                             </div>
                         </div>
+
+                        {/* Sticky Risk Analysis Header */}
+                        {selectedLog && (
+                            <div className="p-4 bg-gray-900 border-b border-gray-800 z-10 shadow-md">
+                                <div className="flex gap-2 flex-wrap items-center">
+
+                                    {/* Fail-Safe CRITICAL Badge */}
+                                    {selectedLog.risk_score > 85 && (
+                                        <span className="px-2 py-1 rounded text-xs font-bold bg-red-600 text-white border border-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+                                            ⚠️ CRITICAL RISK
+                                        </span>
+                                    )}
+
+                                    {/* 1. Legal Flags */}
+                                    {selectedLog.legal_flags?.bankruptcy_risk && (
+                                        <span className="px-2 py-1 rounded text-xs font-bold bg-red-900/80 text-red-200 border border-red-700">
+                                            BANKRUPTCY DECLARED
+                                        </span>
+                                    )}
+                                    {selectedLog.legal_flags?.attorney_represented && (
+                                        <span className="px-2 py-1 rounded text-xs font-bold bg-orange-900/80 text-orange-200 border border-orange-700">
+                                            ⚖️ ATTORNEY REP
+                                        </span>
+                                    )}
+
+                                    {/* 2. Call Outcome */}
+                                    <span className={`px-2 py-1 rounded text-xs font-bold border ${selectedLog.call_outcome === 'PTP' ? 'bg-green-900/60 text-green-200 border-green-700' :
+                                            selectedLog.call_outcome === 'Refusal' ? 'bg-red-900/60 text-red-200 border-red-700' :
+                                                'bg-gray-700 text-gray-300 border-gray-600'
+                                        }`}>
+                                        Outcome: {selectedLog.call_outcome || 'Unknown'}
+                                    </span>
+
+                                    {/* 3. Quadrant Strategy */}
+                                    <span className="px-2 py-1 rounded text-xs font-bold bg-blue-900/40 text-blue-200 border border-blue-700/50">
+                                        Strategy: {selectedLog.matrix_quadrant || 'Unclear'}
+                                    </span>
+                                </div>
+
+                                {/* Agent Notes */}
+                                {selectedLog.agent_notes && (
+                                    <div className="mt-2 text-xs text-gray-400 italic border-l-2 border-gray-600 pl-3">
+                                        "{selectedLog.agent_notes}"
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
                         <div className="flex-1 overflow-y-auto p-6 space-y-4">
                             {!selectedLog && (
