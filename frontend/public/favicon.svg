@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-label="Vaani Logo">
+    <style>
+        .fill-primary { fill: #000000; }
+        @media (prefers-color-scheme: dark) {
+            .fill-primary { fill: #ffffff; }
+        }
+    </style>
+    <g class="fill-primary">
+        <rect x="10" y="20" width="8" height="60" rx="1" />
+        <rect x="22" y="30" width="8" height="40" rx="1" />
+        <rect x="34" y="40" width="8" height="20" rx="1" />
+
+        <rect x="58" y="40" width="8" height="20" rx="1" />
+        <rect x="70" y="30" width="8" height="40" rx="1" />
+        <rect x="82" y="20" width="8" height="60" rx="1" />
+    </g>
+    <rect x="42" y="48" width="16" height="4" class="fill-primary" opacity="0.5"/>
+</svg>

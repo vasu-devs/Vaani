@@ -1,0 +1,44 @@
+{
+  "id": "call-20251209_163024",
+  "timestamp": "20251209_163024",
+  "metadata": {
+    "debtor_name": "vasu",
+    "debt_amount": "1500",
+    "agent_name": "abhi",
+    "agent_voice": "orion",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "abhi",
+      "content": "Hi, this is abhi from RiverLine Bank. Am I speaking with vasu?",
+      "timestamp": "2025-12-09T16:30:24.407132"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "No",
+    "call_outcome": "Hangup",
+    "risk_score": 50,
+    "matrix_quadrant": "Unclear",
+    "financial_profile": {
+      "employed": null,
+      "hardship_reason": null,
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": false,
+      "attorney_represented": false,
+      "cease_and_desist": false,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": null,
+      "promised_date": null
+    },
+    "agent_notes": "No engagement was established as the transcript only contains the intro message.",
+    "generated_tags": []
+  },
+  "risk_score": 50,
+  "status": "completed"
+}

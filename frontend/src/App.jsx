@@ -125,263 +125,252 @@ function App() {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100 text-gray-900 font-sans">
-            {/* Sidebar / Configuration */}
-            <div className="w-1/4 bg-white border-r border-gray-200 p-6 flex flex-col">
-                <div className="flex items-center gap-2 mb-8 text-indigo-600">
-                    <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-label="Vaani Logo">
-                        <path d="M42 75V50C42 42 38 35 30 30" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-                        <path d="M58 75V50C58 42 62 35 70 30" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
-                        <path d="M35 20C40 15 60 15 65 20" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M25 12C35 4 65 4 75 12" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity="0.8" />
-                        <path d="M15 4C30 -4 70 -4 85 4" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
-                        <circle cx="50" cy="82" r="4" fill="currentColor" />
+        <div className="flex h-screen bg-[#F3F4F6] text-gray-900 font-sans p-4 gap-4 overflow-hidden selection:bg-black/10">
+
+            <div className="w-96 bg-white rounded-[2rem] shadow-sm p-8 flex flex-col h-full border border-white/50">
+                <div className="flex items-center gap-3 mb-10 text-gray-900">
+                    <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-label="Vaani Logo">
+                        <g fill="currentColor">
+                            <rect x="10" y="20" width="8" height="60" rx="1" />
+                            <rect x="22" y="30" width="8" height="40" rx="1" />
+                            <rect x="34" y="40" width="8" height="20" rx="1" />
+
+                            <rect x="58" y="40" width="8" height="20" rx="1" />
+                            <rect x="70" y="30" width="8" height="40" rx="1" />
+                            <rect x="82" y="20" width="8" height="60" rx="1" />
+                        </g>
+                        <rect x="42" y="48" width="16" height="4" fill="currentColor" opacity="0.5" />
                     </svg>
-                    <h1 className="text-2xl font-bold tracking-tight">Vaani</h1>
+                    <h1 className="text-3xl font-extrabold tracking-tight">Vaani</h1>
                 </div>
 
                 <div className="mb-8">
-                    <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Configuration</h2>
-                    <form onSubmit={handleCall} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Target Number</label>
+                    <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Configuration</h2>
+                    <form onSubmit={handleCall} className="space-y-5">
+                        <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-500 ml-1">TARGET NUMBER</label>
                             <input
                                 type="text"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                                 placeholder="+15550000000"
-                                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none"
+                                className="w-full p-4 bg-gray-50 rounded-2xl text-gray-900 font-medium placeholder-gray-400 focus:bg-white focus:ring-2 focus:ring-black/5 transition-all outline-none"
                                 required
                             />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-gray-500 ml-1">AMOUNT</label>
                                 <input
                                     type="number"
                                     value={debtAmount}
                                     onChange={(e) => setDebtAmount(e.target.value)}
-                                    className="w-full p-2 border border-gray-300 rounded-lg outline-none"
+                                    className="w-full p-4 bg-gray-50 rounded-2xl text-gray-900 font-medium outline-none focus:bg-white focus:ring-2 focus:ring-black/5 transition-all"
                                 />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-gray-500 ml-1">NAME</label>
                                 <input
                                     type="text"
                                     value={debtorName}
                                     onChange={(e) => setDebtorName(e.target.value)}
-                                    className="w-full p-2 border border-gray-300 rounded-lg outline-none"
+                                    className="w-full p-4 bg-gray-50 rounded-2xl text-gray-900 font-medium outline-none focus:bg-white focus:ring-2 focus:ring-black/5 transition-all"
                                 />
                             </div>
                         </div>
 
-                        <div className="border-t border-gray-100 my-4 pt-4">
-                            <h3 className="text-sm font-semibold text-gray-900 mb-3">Agent Settings</h3>
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Agent Name</label>
+                        <div className="pt-2 space-y-5">
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-gray-500 ml-1">AGENT PERONA</label>
+                                <div className="grid grid-cols-2 gap-2">
                                     <input
                                         type="text"
                                         value={agentName}
                                         onChange={(e) => setAgentName(e.target.value)}
-                                        className="w-full p-2 border border-gray-300 rounded-lg outline-none"
+                                        placeholder="Name"
+                                        className="w-full p-3 bg-gray-50 rounded-xl text-sm font-medium outline-none"
                                     />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Agent Voice</label>
                                     <select
                                         value={agentVoice}
                                         onChange={(e) => setAgentVoice(e.target.value)}
-                                        className="w-full p-2 border border-gray-300 rounded-lg outline-none bg-white"
+                                        className="w-full p-3 bg-gray-50 rounded-xl text-sm font-medium outline-none appearance-none"
                                     >
-                                        <option value="asteria">Asteria (Female, US)</option>
-                                        <option value="luna">Luna (Female, US)</option>
-                                        <option value="orion">Orion (Male, US)</option>
-                                        <option value="arcas">Arcas (Male, US)</option>
-                                        <option value="apollo">Apollo (Male, US)</option>
-                                        <option value="helios">Helios (Male, UK)</option>
+                                        <option value="asteria">Asteria (F)</option>
+                                        <option value="luna">Luna (F)</option>
+                                        <option value="orion">Orion (M)</option>
+                                        <option value="arcas">Arcas (M)</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Additional Context / Details</label>
-                                    <textarea
-                                        value={userDetails}
-                                        onChange={(e) => setUserDetails(e.target.value)}
-                                        placeholder="E.g. User lost job recently, be empathetic..."
-                                        className="w-full p-2 border border-gray-300 rounded-lg outline-none h-24 text-sm"
-                                    />
-                                </div>
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-gray-500 ml-1">CONTEXT</label>
+                                <textarea
+                                    value={userDetails}
+                                    onChange={(e) => setUserDetails(e.target.value)}
+                                    placeholder="Add context..."
+                                    className="w-full p-4 bg-gray-50 rounded-2xl text-sm font-medium outline-none h-24 resize-none transition-all focus:bg-white focus:ring-2 focus:ring-black/5"
+                                />
                             </div>
                         </div>
 
                         <button
                             type="submit"
                             disabled={isCalling}
-                            className={`w-full flex items-center justify-center gap-2 text-white font-medium py-3 rounded-lg transition-all ${isCalling ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700 shadow-md'}`}
+                            className={`w-full flex items-center justify-center gap-2 text-white font-bold text-lg py-4 rounded-full transition-all m-0 shadow-lg hover:shadow-xl ${isCalling ? 'bg-gray-400' : 'bg-black hover:bg-gray-900 active:scale-[0.98]'}`}
                         >
-                            {isCalling ? 'Starting...' : <><Play className="w-4 h-4" /> Start Outbound Call</>}
+                            {isCalling ? 'CONNECTING...' : <><Play className="w-5 h-5 fill-current" /> START CALL</>}
                         </button>
                     </form>
                 </div>
 
                 <div className="mt-auto">
-                    <button className="flex items-center gap-2 text-sm text-gray-500 hover:text-red-600 transition-colors">
-                        <StopCircle className="w-4 h-4" /> Stop All Agents
+                    <button className="flex items-center justify-center gap-2 text-xs font-bold text-red-500 hover:text-red-600 hover:bg-red-50 py-3 rounded-xl w-full transition-colors">
+                        <StopCircle className="w-4 h-4" /> STOP ALL SYSTEMS
                     </button>
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="flex-1 flex flex-col p-8 overflow-hidden">
+            {/* Main Layout - Column */}
+            <div className="flex-1 flex flex-col gap-4 h-full overflow-hidden">
 
-                {/* Top Cards */}
-                <div className="grid grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                {/* 2. Stats Bento Grid */}
+                <div className="grid grid-cols-3 gap-4 shrink-0">
+                    <div className="bg-white rounded-[2rem] p-8 shadow-sm flex items-center justify-between border border-white/50">
                         <div>
-                            <p className="text-sm text-gray-500 font-medium">TOTAL RUNS</p>
-                            <p className="text-3xl font-bold text-gray-900 mt-1">{stats.totalCalls}</p>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">RUNS</p>
+                            <p className="text-5xl font-extrabold text-gray-900 tracking-tight">{stats.totalCalls}</p>
                         </div>
-                        <div className="p-3 bg-indigo-50 rounded-lg">
-                            <RefreshCw className="w-6 h-6 text-indigo-600" />
+                        <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-gray-900">
+                            <RefreshCw className="w-5 h-5" />
                         </div>
                     </div>
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                    <div className="bg-white rounded-[2rem] p-8 shadow-sm flex items-center justify-between border border-white/50">
                         <div>
-                            <p className="text-sm text-gray-500 font-medium">AVG RISK SCORE</p>
-                            <p className="text-3xl font-bold text-gray-900 mt-1">{stats.avgRisk}<span className="text-sm text-gray-400 font-normal">/100</span></p>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">AVG RISK</p>
+                            <p className="text-5xl font-extrabold text-gray-900 tracking-tight">{stats.avgRisk}</p>
                         </div>
-                        <div className="p-3 bg-orange-50 rounded-lg">
-                            <AlertTriangle className="w-6 h-6 text-orange-600" />
+                        <div className="w-12 h-12 bg-orange-50 rounded-full flex items-center justify-center text-orange-500">
+                            <AlertTriangle className="w-5 h-5" />
                         </div>
                     </div>
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                    <div className="bg-white rounded-[2rem] p-8 shadow-sm flex items-center justify-between border border-white/50">
                         <div>
-                            <p className="text-sm text-gray-500 font-medium">PASS RATE</p>
-                            <p className="text-3xl font-bold text-gray-900 mt-1">{stats.passRate}</p>
+                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">SUCCESS</p>
+                            <p className="text-5xl font-extrabold text-gray-900 tracking-tight">{stats.passRate}</p>
                         </div>
-                        <div className="p-3 bg-green-50 rounded-lg">
-                            <FileText className="w-6 h-6 text-green-600" />
+                        <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-500">
+                            <FileText className="w-5 h-5" />
                         </div>
                     </div>
                 </div>
 
-                {/* Content Area */}
-                <div className="flex-1 flex gap-6 overflow-hidden">
+                {/* Bottom Section */}
+                <div className="flex-1 flex gap-4 overflow-hidden">
 
-                    {/* History List */}
-                    <div className="w-1/3 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
-                        <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                            <h3 className="font-semibold text-gray-700">Call History</h3>
-                            <span className="text-xs bg-white border px-2 py-1 rounded text-gray-500">{logs.length} records</span>
-                        </div>
-                        <div className="flex-1 overflow-y-auto p-2 space-y-2">
+                    {/* 3. History List */}
+                    <div className="w-96 bg-white rounded-[2rem] shadow-sm p-6 flex flex-col border border-white/50">
+                        <h3 className="text-lg font-bold text-gray-900 mb-6 px-2">Recent Calls</h3>
+                        <div className="flex-1 overflow-y-auto space-y-2 pr-2">
                             {logs.map(log => (
                                 <div
                                     key={log.id}
                                     onClick={() => viewLog(log.id)}
-                                    className={`p-4 rounded-lg cursor-pointer border transition-all hover:shadow-md ${selectedLog?.id === log.id ? 'bg-indigo-50 border-indigo-200 ring-1 ring-indigo-200' : 'bg-white border-gray-100 hover:border-gray-300'}`}
+                                    className={`p-4 rounded-2xl cursor-pointer transition-all ${selectedLog?.id === log.id ? 'bg-black text-white shadow-lg' : 'bg-gray-50 hover:bg-gray-100 text-gray-900'}`}
                                 >
-                                    <div className="flex justify-between items-start mb-2">
-                                        <span className="font-medium text-gray-900 text-sm">{log.debtor_name || 'John Doe'}</span>
-                                        <span className={`text-xs px-2 py-0.5 rounded-full ${log.risk_score > 50 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                                            Risk: {log.risk_score}
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="font-bold text-sm">{log.debtor_name || 'Unknown'}</span>
+                                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${selectedLog?.id === log.id ? 'bg-white/20 text-white' :
+                                            log.risk_score > 50 ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'
+                                            }`}>
+                                            Risk {log.risk_score}
                                         </span>
                                     </div>
-                                    <div className="text-xs text-gray-500 flex justify-between">
-                                        <span>{log.id}</span>
-                                        <span className="font-mono text-gray-400">{formatCallIdDate(log.id)}</span>
+                                    <div className={`text-xs font-medium flex justify-between ${selectedLog?.id === log.id ? 'text-gray-400' : 'text-gray-400'}`}>
+                                        <span>#{log.id.split('_')[1]}</span>
+                                        <span>{formatCallIdDate(log.id)}</span>
                                     </div>
                                 </div>
                             ))}
-                            {logs.length === 0 && <div className="p-8 text-center text-gray-400 text-sm">No calls recorded yet.</div>}
+                            {logs.length === 0 && <div className="text-center text-gray-400 mt-10 text-sm font-medium">No calls yet</div>}
                         </div>
                     </div>
 
-                    {/* Logs Viewer */}
-                    <div className="flex-1 bg-gray-900 rounded-xl shadow-lg border border-gray-800 flex flex-col overflow-hidden text-gray-300 font-mono text-sm">
-                        <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-800/50">
-                            <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                <span className="ml-4 font-semibold text-gray-200">
-                                    {selectedLog ? `Transcript: ${selectedLog.id}` : "Real-time Logs"}
+                    {/* 4. Terminal / Transcript */}
+                    <div className="flex-1 bg-[#111] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden text-gray-300 relative">
+
+                        {/* Dark Header */}
+                        <div className="px-8 py-5 border-b border-white/5 bg-[#111] flex justify-between items-center z-10">
+                            <div className="flex items-center gap-3">
+                                <div className="flex gap-2">
+                                    <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                    <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                    <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                </div>
+                                <span className="ml-4 font-mono text-sm font-medium text-gray-400">
+                                    {selectedLog ? `vaani-cli --log ${selectedLog.id}` : "vaani-cli --listen"}
                                 </span>
                             </div>
                         </div>
 
-                        {/* Sticky Risk Analysis Header */}
+                        {/* Sticky Risk Badges (Dark Mode Style) */}
                         {selectedLog && (
-                            <div className="p-4 bg-gray-900 border-b border-gray-800 z-10 shadow-md">
-                                <div className="flex gap-2 flex-wrap items-center">
-
-                                    {/* Fail-Safe CRITICAL Badge */}
-                                    {selectedLog.risk_score > 85 && (
-                                        <span className="px-2 py-1 rounded text-xs font-bold bg-red-600 text-white border border-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]">
-                                            ⚠️ CRITICAL RISK
-                                        </span>
-                                    )}
-
-                                    {/* 1. Legal Flags */}
-                                    {selectedLog.legal_flags?.bankruptcy_risk && (
-                                        <span className="px-2 py-1 rounded text-xs font-bold bg-red-900/80 text-red-200 border border-red-700">
-                                            BANKRUPTCY DECLARED
-                                        </span>
-                                    )}
-                                    {selectedLog.legal_flags?.attorney_represented && (
-                                        <span className="px-2 py-1 rounded text-xs font-bold bg-orange-900/80 text-orange-200 border border-orange-700">
-                                            ⚖️ ATTORNEY REP
-                                        </span>
-                                    )}
-
-                                    {/* 2. Call Outcome */}
-                                    <span className={`px-2 py-1 rounded text-xs font-bold border ${selectedLog.call_outcome === 'PTP' ? 'bg-green-900/60 text-green-200 border-green-700' :
-                                        selectedLog.call_outcome === 'Refusal' ? 'bg-red-900/60 text-red-200 border-red-700' :
-                                            'bg-gray-700 text-gray-300 border-gray-600'
-                                        }`}>
-                                        Outcome: {selectedLog.call_outcome || 'Unknown'}
+                            <div className="px-8 py-4 bg-[#111]/90 backdrop-blur-sm border-b border-white/5 z-10 flex flex-wrap gap-3 items-center">
+                                {selectedLog.risk_score > 85 && (
+                                    <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-red-500 text-white animate-pulse shadow-red-500/20 shadow-lg">
+                                        CRITICAL RISK
                                     </span>
-
-                                    {/* 3. Quadrant Strategy */}
-                                    <span className="px-2 py-1 rounded text-xs font-bold bg-blue-900/40 text-blue-200 border border-blue-700/50">
-                                        Strategy: {selectedLog.matrix_quadrant || 'Unclear'}
-                                    </span>
-                                </div>
-
-                                {/* Agent Notes */}
-                                {selectedLog.agent_notes && (
-                                    <div className="mt-2 text-xs text-gray-400 italic border-l-2 border-gray-600 pl-3">
-                                        "{selectedLog.agent_notes}"
-                                    </div>
                                 )}
+                                {selectedLog.legal_flags?.bankruptcy_risk && (
+                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-red-400 border border-white/5">
+                                        BANKRUPTCY
+                                    </span>
+                                )}
+                                {selectedLog.legal_flags?.attorney_represented && (
+                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-orange-400 border border-white/5">
+                                        ATTORNEY REP
+                                    </span>
+                                )}
+                                <span className={`px-3 py-1 rounded-full text-xs font-bold bg-white/10 border border-white/5 ${selectedLog.call_outcome === 'PTP' ? 'text-green-400' :
+                                    selectedLog.call_outcome === 'Refusal' ? 'text-red-400' : 'text-gray-300'
+                                    }`}>
+                                    {selectedLog.call_outcome || 'Pending'}
+                                </span>
+                                <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/5 text-blue-400 border border-white/5">
+                                    {selectedLog.matrix_quadrant || 'Analysing...'}
+                                </span>
                             </div>
                         )}
 
-                        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                        {/* Chat Area */}
+                        <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
                             {!selectedLog && (
-                                <div className="text-gray-500 italic text-center mt-20">Select a call to view transcript...</div>
+                                <div className="flex flex-col items-center justify-center h-full text-gray-600 gap-4">
+                                    <div className="w-16 h-1 bg-gray-800 rounded-full animate-pulse"></div>
+                                    <p className="font-mono text-sm">System Ready. Waiting for dispatch.</p>
+                                </div>
                             )}
 
                             {selectedLog?.transcript?.map((msg, idx) => (
-                                <div key={idx} className="flex gap-4">
-                                    <div className={`min-w-[80px] font-bold text-right ${msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'text-blue-400' : 'text-green-400'}`}>
-                                        [{msg.speaker || (msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'Agent' : 'Defaulter')}]
+                                <div key={idx} className="flex gap-6 group hover:bg-white/[0.02] -mx-4 px-4 py-2 rounded-xl transition-colors">
+                                    <div className={`w-24 text-right font-mono text-xs pt-1 uppercase tracking-wider ${msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'text-indigo-400' : 'text-emerald-400'}`}>
+                                        {msg.speaker || (msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'AI_AGENT' : 'CUSTOMER')}
                                     </div>
-                                    <div className="text-gray-300">
+                                    <div className="flex-1 text-gray-300 text-base font-light leading-relaxed">
                                         {msg.content}
                                     </div>
                                 </div>
                             ))}
 
                             {selectedLog && (
-                                <div className="mt-8 border-t border-gray-800 pt-4 text-xs text-gray-500">
-                                    End of Log. Final Risk Score: {selectedLog.risk_score}
+                                <div className="mt-12 pt-6 border-t border-white/5 flex justify-between text-xs font-mono text-gray-600">
+                                    <span>SESSION_ID: {selectedLog.id}</span>
+                                    <span>END_OF_STREAM</span>
                                 </div>
                             )}
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
