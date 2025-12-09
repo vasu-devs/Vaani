@@ -1,0 +1,92 @@
+{
+  "id": "call-20251209_151601",
+  "timestamp": "20251209_151601",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "1500",
+    "agent_name": "Abhi",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hi, this is Abhi from RiverLine Bank. Am I speaking with Vasu?",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Yeah. I know. I forgot about it.",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "The total amount due is $1500. Could you please tell me a little about why it was forgotten",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Yeah. Yeah. I know. I forgot about it.",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "It can happen. Can you let me know if you're currently in a position to pay this amount now?",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Not now. I'm waiting for a check, actually.",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I see. Unfortunately, we can't hold the account information open indefinitely. If you can pay 50% now, I could look into",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "So the thing is, can you call me",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "next Friday? I'll pay, like, fifteen hundred. I'm using my Visa card.",
+      "timestamp": "2025-12-09T15:16:01.641891"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "Yes",
+    "call_outcome": "PTP",
+    "risk_score": 20,
+    "matrix_quadrant": "Forgetful",
+    "financial_profile": {
+      "employed": true,
+      "hardship_reason": null,
+      "payment_method_mentioned": "Credit Card"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": false,
+      "attorney_represented": false,
+      "cease_and_desist": false,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": 1500.0,
+      "promised_date": "next Friday"
+    },
+    "agent_notes": "Debtor agreed to pay the full amount of $1500 next Friday using their Visa card.",
+    "generated_tags": []
+  },
+  "risk_score": 20,
+  "status": "completed"
+}

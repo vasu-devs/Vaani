@@ -1,0 +1,44 @@
+{
+  "id": "call-20251209_132059",
+  "timestamp": "20251209_132059",
+  "metadata": {
+    "debtor_name": "Rachel",
+    "debt_amount": "N/A",
+    "agent_name": "Rachel",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Hi, this is Rachel from RiverLine Bank. Am I speaking with Rachel?",
+      "timestamp": "2025-12-09T13:20:59.992928"
+    },
+    {
+      "role": "user",
+      "speaker": "Rachel",
+      "content": "Yeah.",
+      "timestamp": "2025-12-09T13:20:59.992928"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "I'm calling regarding an",
+      "timestamp": "2025-12-09T13:20:59.992928"
+    },
+    {
+      "role": "user",
+      "speaker": "Rachel",
+      "content": "Yes. This is the",
+      "timestamp": "2025-12-09T13:20:59.992928"
+    }
+  ],
+  "risk_analysis": {
+    "risk_score": 50,
+    "reason": "Analysis Failed: 'ChatChunk' object has no attribute 'choices'",
+    "status": "Error"
+  },
+  "risk_score": 50,
+  "status": "completed"
+}

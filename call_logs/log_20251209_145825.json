@@ -1,0 +1,75 @@
+{
+  "id": "call-20251209_145825",
+  "timestamp": "20251209_145825",
+  "metadata": {
+    "debtor_name": "John Doe",
+    "debt_amount": "N/A",
+    "agent_name": "Rachel",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Hi, this is Rachel from RiverLine Bank. Am I speaking with John Doe?",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "This is John Lou.",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Am I speaking with John Lou who might be confused with a John Doe account we're currently trying to contact about a payment?",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "Yeah. This is John Doe.",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Thank you, Mr. Doe. You have an outstanding balance of $10,445.99 with RiverLine Bank. Can you please",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "Yeah. So the issue is right now, I have a lot of medical issues. Apart from that, I just lost my job.",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "Of these reasons, I cannot actually pay my debt right away.",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "I see. Medical issues and job loss can be challenging. Can you try to pay at least 50% of the total amount of $10,445.99 to start?",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "No. Actually, I cannot do that. The issue is I just",
+      "timestamp": "2025-12-09T14:58:25.453532"
+    }
+  ],
+  "risk_analysis": {
+    "risk_score": 50,
+    "agent_notes": "Analysis Failed: 8 validation errors for SherlockRiskAssessment\nrpc_status\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\ncall_outcome\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nrisk_score\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nmatrix_quadrant\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nfinancial_profile\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nlegal_flags\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nnegotiation_details\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing\nagent_notes\n  Field required [type=missing, input_value={'debtor_name': 'John Doe...: True, 'stall': False}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/missing",
+    "call_outcome": "Error",
+    "matrix_quadrant": "Unclear"
+  },
+  "risk_score": 50,
+  "status": "completed"
+}

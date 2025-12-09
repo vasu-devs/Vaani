@@ -1,0 +1,108 @@
+{
+  "id": "call-20251209_151800",
+  "timestamp": "20251209_151800",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "1500",
+    "agent_name": "Abhi",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hi, this is Abhi from RiverLine Bank. Am I speaking with Vasu?",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Who is this?",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "You're",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Who is this?",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hello, this is Abhi, a collections agent from RiverLine Bank. Can I",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Stop calling me. This is harassment. Stop calling me.",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I understand your frustration, Vasu. I'm just trying to discuss",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "No. No. Listen listen to me. Listen to me. Listen to me. I have already filed",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "for chapter seven bankruptcy. My lawyer told me you cannot call me anymore.",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I see. I apologize for any inconvenience this may have caused. However,",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Talk to my lawyer. Talk to my lawyer. Goodbye.",
+      "timestamp": "2025-12-09T15:18:00.352189"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "No",
+    "call_outcome": "Refusal",
+    "risk_score": 90,
+    "matrix_quadrant": "Strategic Defaulter",
+    "financial_profile": {
+      "employed": null,
+      "hardship_reason": "Bankruptcy",
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": true,
+      "attorney_represented": true,
+      "cease_and_desist": true,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": null,
+      "promised_date": null
+    },
+    "agent_notes": "Debtor has filed for Chapter 7 bankruptcy and is refusing to pay, requesting to speak with their lawyer.",
+    "generated_tags": [
+      "High Risk",
+      "Legal Review",
+      "DNC - Bankruptcy"
+    ]
+  },
+  "risk_score": 90,
+  "status": "completed"
+}

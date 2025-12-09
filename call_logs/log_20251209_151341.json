@@ -1,0 +1,118 @@
+{
+  "id": "call-20251209_151341",
+  "timestamp": "20251209_151341",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "1500",
+    "agent_name": "Abhi",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hi, this is Abhi from RiverLine Bank. Am I speaking with Vasu?",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Yes. This is Vasu.",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Vasu, I'm calling regarding an outstanding debt of $1500.",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Look, I really want to pay you guys.",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "But I hate being in debt.",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I understand your concern about debt, Vasu. However, the",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "But, honestly, can't right now. The I just lost my job last week, and I just lost all my medical bills",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "piling up for my mom.",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I see, that can be a tough financial situation. Unfortunately,",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "I just don't have any income coming Can I can I like, can I pay you maybe fifty next month when I hope",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "hopefully find some work?",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Vasu, paying half now would help, but I'm still short $750. Would you be able",
+      "timestamp": "2025-12-09T15:13:41.894400"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "Yes",
+    "call_outcome": "PTP",
+    "risk_score": 60,
+    "matrix_quadrant": "Hardship",
+    "financial_profile": {
+      "employed": false,
+      "hardship_reason": "Unemployment and Medical Bills",
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": false,
+      "attorney_represented": false,
+      "cease_and_desist": false,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": 50.0,
+      "promised_date": null
+    },
+    "agent_notes": "Debtor, Vasu, expressed willingness to pay but faces financial hardship due to job loss and accumulating medical bills, requiring a compassionate yet firm follow-up strategy.",
+    "generated_tags": [
+      "Settlement Offer"
+    ]
+  },
+  "risk_score": 60,
+  "status": "completed"
+}

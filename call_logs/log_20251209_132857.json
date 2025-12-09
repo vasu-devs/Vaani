@@ -1,0 +1,19 @@
+{
+  "id": "call-20251209_132857",
+  "timestamp": "20251209_132857",
+  "metadata": {
+    "debtor_name": "John Doe",
+    "debt_amount": "N/A",
+    "agent_name": "Rachel",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [],
+  "risk_analysis": {
+    "risk_score": 0,
+    "reason": "No conversation recorded.",
+    "status": "Error"
+  },
+  "risk_score": 0,
+  "status": "completed"
+}

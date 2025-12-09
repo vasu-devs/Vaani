@@ -1,0 +1,75 @@
+{
+  "id": "call-20251209_134937",
+  "timestamp": "20251209_134937",
+  "metadata": {
+    "debtor_name": "John Doe",
+    "debt_amount": "N/A",
+    "agent_name": "Rachel",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Hi, this is Rachel from RiverLine Bank. Am I speaking with John Doe?",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "Yeah. This is John Doe.",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Mr. Doe, thank you for confirming your identity. I'm calling regarding an outstanding debt of $N/A that is currently due. Can",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "Yeah. So the issue is I cannot pay the loan. Right?",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "Because of a medical issue, and I recently lost my job. So",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "I cannot pay the loan straight away.",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "I see. I apologize to hear about your medical issue and job loss. Hmm, can you tell me more about your current financial situation and when you expect to be back on your feet?",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "I have no incoming and I'm also applying to companies, so I don't have any surety when when I get hired.",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    },
+    {
+      "role": "user",
+      "speaker": "John Doe",
+      "content": "By the time, I'll pay before it. Sorry. Thanks.",
+      "timestamp": "2025-12-09T13:49:37.103157"
+    }
+  ],
+  "risk_analysis": {
+    "risk_score": 50,
+    "reasoning": "Analysis Failed: Expecting value: line 1 column 1 (char 0)",
+    "next_action": "Manual Review",
+    "status": "Error"
+  },
+  "risk_score": 50,
+  "status": "completed"
+}
