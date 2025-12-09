@@ -100,8 +100,6 @@ LIVEKIT_API_SECRET=your_api_secret
 GROQ_API_KEY=gsk_...
 DEEPGRAM_API_KEY=...
 
-# App Settings
-PHONENUMBER=... (Optional default)
 ```
 
 #### 3. Frontend Setup

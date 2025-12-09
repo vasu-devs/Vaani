@@ -1,0 +1,117 @@
+{
+  "id": "call-20251209_173341",
+  "timestamp": "20251209_173341",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "150",
+    "agent_name": "Abhi",
+    "agent_voice": "orion",
+    "user_details": "very rude"
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hi, this is Abhi from RiverLine Bank. Am I speaking with Vasu?",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Hello. This is",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Vasu, is that correct? This is Abhi, a collections agent from RiverLine Bank, and I'm here to discuss an outstanding balance.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "I know about that. The the thing is I lost my job recently.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "From that, like, I have medical bills, like,",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "just piling up above me because of my deteriorating health. So I'm unable to pay the",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "debt right now.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "I see. Vasu, I understand that's a difficult situation. However, the outstanding debt of $150 from our records needs to be addressed. Can you tell me when you expect to be able to make a payment?",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "The thing is I don't have any source of income as of now. Apart from that, I also all of my things are gone.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "So the best that I can do is a ten dollar per month.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Plan.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Can we do that?",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "Hmm, Vasu, I want to make sure we can come to a mutually agreeable plan. A $10 monthly payment might not cover the debt in a timely manner, considering the interest and fees that will accrue. However, I can offer a compromise - pay 50% of the debt, which is $75, now.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "I won't be able to pay fifty percent out of",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "so",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Abhi",
+      "content": "It seems like a payment plan of any kind may not be feasible at this time. I see that you're facing a lot of challenges. In that case, I'd like to propose that you provide a promise to pay the entire debt of $150 by a specific date, say, within the next 6 months.",
+      "timestamp": "2025-12-09T17:33:41.153527"
+    }
+  ],
+  "risk_analysis": {
+    "risk_score": 50,
+    "agent_notes": "Analysis Failed: 1 validation error for SherlockRiskAssessment\ncall_outcome\n  Input should be 'PTP', 'Refusal', 'Dispute', 'Hangup' or 'Callback_Requested' [type=literal_error, input_value='Stall', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/literal_error",
+    "call_outcome": "Error",
+    "matrix_quadrant": "Unclear"
+  },
+  "risk_score": 50,
+  "status": "completed"
+}
