@@ -68,11 +68,16 @@ async def get_history():
         try:
             with open(log_file, "r") as f:
                 data = json.load(f)
+                # Extract debtor name from metadata if available
+                metadata = data.get("metadata", {})
+                debtor = metadata.get("debtor_name") or data.get("debtor_name") or "John Doe"
+
                 logs.append({
                     "id": data.get("id"),
                     "timestamp": data.get("timestamp"),
                     "risk_score": data.get("risk_score"),
-                    "status": data.get("status")
+                    "status": data.get("status"),
+                    "debtor_name": debtor
                 })
         except:
             continue

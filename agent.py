@@ -133,6 +133,20 @@ The user's account details and notes: {user_details}
     
     session = AgentSession()
 
+    logger.info("Connecting to room with forced TCP/Relay (Firewall Bypass)...")
+    # Force TCP/TLS to bypass restrictive UDP firewalls
+    try:
+        rtc_config = rtc.RtcConfiguration(
+            ice_transport_type=rtc.IceTransportType.TRANSPORT_RELAY
+        )
+        await ctx.connect(rtc_config=rtc_config)
+        logger.info("Connected to room via TCP/Relay.")
+    except Exception as e:
+        logger.error(f"Failed to connect with forced TCP: {e}")
+        # Fallback to default if this fails usually won't work if UDP is blocked but worth trying
+        logger.info("Falling back to default connection...")
+        await ctx.connect()
+
     logger.info("Starting AgentSession...")
     await session.start(room=ctx.room, agent=agent)
     logger.info("AgentSession started.")
@@ -149,52 +163,83 @@ The user's account details and notes: {user_details}
     
     # Monitor for disconnect
     try:
-        await ctx.room.disconnect_future
-    except:
-        pass
+        logger.info("Waiting for call to end...")
+        # Wait indefinitely until the task is cancelled (which happens on disconnect)
+        await asyncio.get_running_loop().create_future()
+    except asyncio.CancelledError:
+        logger.info("Agent task cancelled (likely user disconnected).")
+    except Exception as e:
+        logger.info(f"Agent session ending due to: {e}")
     finally:
-        await save_transcript(agent)
+        # Pass the full configuration to the transcript saver
+        final_config = {
+            "debtor_name": debtor_name,
+            "debt_amount": debt_amount,
+            "agent_name": agent_name,
+            "agent_voice": agent_voice,
+            "user_details": user_details
+        }
+        await save_transcript(agent, final_config)
 
-async def save_transcript(agent: VoicePipelineAgent):
+async def save_transcript(agent: VoicePipelineAgent, metadata: dict):
     try:
         os.makedirs("call_logs", exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"call_logs/log_{timestamp}.json"
         
-        # Extract metadata (simple mock for specific fields if needed, or just dump messages)
         transcript = []
-        risk_score = 0 # Mock logic or analyze text
+        risk_score = 0
         
-        # Use internal _items to access messages directly, as ChatContext wrapper hides them
-        messages = agent.chat_ctx._items if hasattr(agent.chat_ctx, "_items") else []
-
+        # Access messages
+        # VoicePipelineAgent.chat_ctx might be ReadOnlyChatContext
+        # Try different ways to access messages
+        messages = []
+        if hasattr(agent.chat_ctx, "messages"):
+            messages = agent.chat_ctx.messages
+        elif hasattr(agent.chat_ctx, "_items"):
+            messages = agent.chat_ctx._items
+        else:
+            # Try treating as iterable
+            try:
+                messages = list(agent.chat_ctx)
+            except:
+                logger.warning("Could not extract messages from ChatContext")
+        
         for msg in messages:
-            # Avoid serializing non-serializable objects if any
-            # ChatMessage usually has role (enum) and content (str/list)
-            role_str = str(msg.role)
-            content = msg.content
+            role = getattr(msg, "role", "unknown")
+            content = getattr(msg, "content", "")
             if isinstance(content, list):
                 content = " ".join([str(c) for c in content])
             
+            # Map roles to human-readable names
+            speaker = str(role)
+            if role == "system":
+                speaker = "System"
+            elif role == "user":
+                speaker = metadata.get("debtor_name", "Defaulter")
+            elif role == "assistant":
+                speaker = metadata.get("agent_name", "Agent")
+                
             transcript.append({
-                "role": role_str,
+                "role": str(role),
+                "speaker": speaker,
                 "content": content,
-                "timestamp": datetime.now().isoformat() # Ideally capture real time if available
+                "timestamp": datetime.now().isoformat()
             })
             
-            # Simple keyword risk analysis
-            if "escalate" in str(content).lower() or "refuse" in str(content).lower():
-                risk_score += 20
-            if "sue" in str(content).lower() or "lawyer" in str(content).lower():
-                risk_score += 50
+            # Risk Analysis
+            if role == "user":
+                if "escalate" in str(content).lower() or "refuse" in str(content).lower():
+                    risk_score += 20
+                if "sue" in str(content).lower() or "lawyer" in str(content).lower():
+                    risk_score += 50
                 
-        # Normalize risk
-        risk_score = min(score for score in [risk_score] if True) # clean way to keep variable
         risk_score = min(100, risk_score)
 
         data = {
             "id": f"call-{timestamp}",
             "timestamp": timestamp,
+            "metadata": metadata, # Store full metadata for dashboard
             "transcript": transcript,
             "risk_score": risk_score,
             "status": "completed"

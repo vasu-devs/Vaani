@@ -147,7 +147,8 @@ function App() {
                                         <option value="asteria">Asteria (Female, US)</option>
                                         <option value="luna">Luna (Female, US)</option>
                                         <option value="orion">Orion (Male, US)</option>
-                                        <option value="arc">Arc (Male, US)</option>
+                                        <option value="arcas">Arcas (Male, US)</option>
+                                        <option value="apollo">Apollo (Male, US)</option>
                                         <option value="helios">Helios (Male, UK)</option>
                                     </select>
                                 </div>
@@ -231,7 +232,7 @@ function App() {
                                     className={`p-4 rounded-lg cursor-pointer border transition-all hover:shadow-md ${selectedLog?.id === log.id ? 'bg-indigo-50 border-indigo-200 ring-1 ring-indigo-200' : 'bg-white border-gray-100 hover:border-gray-300'}`}
                                 >
                                     <div className="flex justify-between items-start mb-2">
-                                        <span className="font-medium text-gray-900 text-sm">John Doe</span>
+                                        <span className="font-medium text-gray-900 text-sm">{log.debtor_name || 'John Doe'}</span>
                                         <span className={`text-xs px-2 py-0.5 rounded-full ${log.risk_score > 50 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
                                             Risk: {log.risk_score}
                                         </span>
@@ -267,7 +268,7 @@ function App() {
                             {selectedLog?.transcript?.map((msg, idx) => (
                                 <div key={idx} className="flex gap-4">
                                     <div className={`min-w-[80px] font-bold text-right ${msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'text-blue-400' : 'text-green-400'}`}>
-                                        {msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? '[Agent]' : '[Defaulter]'}
+                                        [{msg.speaker || (msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'Agent' : 'Defaulter')}]
                                     </div>
                                     <div className="text-gray-300">
                                         {msg.content}
