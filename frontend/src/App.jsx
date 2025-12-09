@@ -129,7 +129,14 @@ function App() {
             {/* Sidebar / Configuration */}
             <div className="w-1/4 bg-white border-r border-gray-200 p-6 flex flex-col">
                 <div className="flex items-center gap-2 mb-8 text-indigo-600">
-                    <Phone className="w-8 h-8" />
+                    <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-label="Vaani Logo">
+                        <path d="M42 75V50C42 42 38 35 30 30" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                        <path d="M58 75V50C58 42 62 35 70 30" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                        <path d="M35 20C40 15 60 15 65 20" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M25 12C35 4 65 4 75 12" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" opacity="0.8" />
+                        <path d="M15 4C30 -4 70 -4 85 4" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+                        <circle cx="50" cy="82" r="4" fill="currentColor" />
+                    </svg>
                     <h1 className="text-2xl font-bold tracking-tight">Vaani</h1>
                 </div>
 
@@ -330,8 +337,8 @@ function App() {
 
                                     {/* 2. Call Outcome */}
                                     <span className={`px-2 py-1 rounded text-xs font-bold border ${selectedLog.call_outcome === 'PTP' ? 'bg-green-900/60 text-green-200 border-green-700' :
-                                            selectedLog.call_outcome === 'Refusal' ? 'bg-red-900/60 text-red-200 border-red-700' :
-                                                'bg-gray-700 text-gray-300 border-gray-600'
+                                        selectedLog.call_outcome === 'Refusal' ? 'bg-red-900/60 text-red-200 border-red-700' :
+                                            'bg-gray-700 text-gray-300 border-gray-600'
                                         }`}>
                                         Outcome: {selectedLog.call_outcome || 'Unknown'}
                                     </span>
