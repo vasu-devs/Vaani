@@ -127,6 +127,7 @@ function App() {
     return (
         <div className="flex h-screen bg-[#F3F4F6] text-gray-900 font-sans p-4 gap-4 overflow-hidden selection:bg-black/10">
 
+            {/* 1. Floating Sidebar Card */}
             <div className="w-96 bg-white rounded-[2rem] shadow-sm p-8 flex flex-col h-full border border-white/50">
                 <div className="flex items-center gap-3 mb-10 text-gray-900">
                     <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" aria-label="Vaani Logo">
@@ -347,7 +348,7 @@ function App() {
                         )}
 
                         {/* Chat Area */}
-                        <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
+                        <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-dark">
                             {!selectedLog && (
                                 <div className="flex flex-col items-center justify-center h-full text-gray-600 gap-4">
                                     <div className="w-16 h-1 bg-gray-800 rounded-full animate-pulse"></div>
