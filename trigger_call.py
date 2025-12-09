@@ -1,5 +1,6 @@
 import os
 import asyncio
+import json
 from livekit import api
 from dotenv import load_dotenv
 
@@ -17,13 +18,33 @@ async def trigger_call(phone_number):
         return
 
     print(f"Triggering call to {phone_number}...")
+    print(f"DEBUG: DEBTOR_NAME={os.getenv('DEBTOR_NAME')}")
+    print(f"DEBUG: AGENT_NAME={os.getenv('AGENT_NAME')}")
     
     lk_api = api.LiveKitAPI(LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET)
     
     room_name = f"call-{phone_number.replace('+', '')}"
+
+    # Prepare metadata for the agent to pick up
+    config = {
+        "debtor_name": os.getenv("DEBTOR_NAME", "John Doe"),
+        "debt_amount": os.getenv("DEBT_AMOUNT", "1500"),
+        "agent_name": os.getenv("AGENT_NAME", "Rachel"),
+        "agent_voice": os.getenv("AGENT_VOICE", "asteria"),
+        "user_details": os.getenv("USER_DETAILS", "")
+    }
+    metadata_json = json.dumps(config)
     
-    # 1. Create Room (optional, joining creates it usually, but explicit is good)
-    await lk_api.room.create_room(api.CreateRoomRequest(name=room_name))
+    # 1. Ensure clean slate by deleting existing room
+    try:
+        await lk_api.room.delete_room(api.DeleteRoomRequest(room=room_name))
+        print(f"Deleted existing room: {room_name}")
+    except Exception:
+        pass # Room didn't exist, ignore
+
+    # 2. Create Room with metadata (Atomic)
+    await lk_api.room.create_room(api.CreateRoomRequest(name=room_name, metadata=metadata_json))
+    print(f"Created fresh room {room_name} with metadata.")
 
     # 2. Dispatch SIP call
     # We use the SIPParticipant APIs if available, or just standard CreateSIPParticipant

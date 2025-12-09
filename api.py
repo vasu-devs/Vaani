@@ -20,6 +20,9 @@ class CallRequest(BaseModel):
     phone_number: str
     debt_amount: int
     debtor_name: str
+    agent_name: str = "Rachel"
+    agent_voice: str = "asteria"
+    user_details: str = ""
 
 @app.post("/api/call")
 async def trigger_call(request: CallRequest):
@@ -38,6 +41,9 @@ async def trigger_call(request: CallRequest):
         env = os.environ.copy()
         env["DEBT_AMOUNT"] = str(request.debt_amount)
         env["DEBTOR_NAME"] = request.debtor_name
+        env["AGENT_NAME"] = request.agent_name
+        env["AGENT_VOICE"] = request.agent_voice
+        env["USER_DETAILS"] = request.user_details
         
         subprocess.Popen(
             [".venv/Scripts/python", "trigger_call.py", request.phone_number],

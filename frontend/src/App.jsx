@@ -18,6 +18,9 @@ function App() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [debtAmount, setDebtAmount] = useState('1500');
     const [debtorName, setDebtorName] = useState('John Doe');
+    const [agentName, setAgentName] = useState('Rachel');
+    const [agentVoice, setAgentVoice] = useState('asteria');
+    const [userDetails, setUserDetails] = useState('');
     const [isCalling, setIsCalling] = useState(false);
 
     const [logs, setLogs] = useState([]);
@@ -55,9 +58,12 @@ function App() {
             await axios.post('/api/call', {
                 phone_number: phoneNumber,
                 debt_amount: parseInt(debtAmount),
-                debtor_name: debtorName
+                debtor_name: debtorName,
+                agent_name: agentName,
+                agent_voice: agentVoice,
+                user_details: userDetails
             });
-            alert(`Calling ${phoneNumber}... Check logs shortly.`);
+            alert(`Calling ${phoneNumber} as ${agentName}... Check logs shortly.`);
         } catch (err) {
             alert("Failed to trigger call: " + err.message);
         } finally {
@@ -116,6 +122,44 @@ function App() {
                                     onChange={(e) => setDebtorName(e.target.value)}
                                     className="w-full p-2 border border-gray-300 rounded-lg outline-none"
                                 />
+                            </div>
+                        </div>
+
+                        <div className="border-t border-gray-100 my-4 pt-4">
+                            <h3 className="text-sm font-semibold text-gray-900 mb-3">Agent Settings</h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Agent Name</label>
+                                    <input
+                                        type="text"
+                                        value={agentName}
+                                        onChange={(e) => setAgentName(e.target.value)}
+                                        className="w-full p-2 border border-gray-300 rounded-lg outline-none"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Agent Voice</label>
+                                    <select
+                                        value={agentVoice}
+                                        onChange={(e) => setAgentVoice(e.target.value)}
+                                        className="w-full p-2 border border-gray-300 rounded-lg outline-none bg-white"
+                                    >
+                                        <option value="asteria">Asteria (Female, US)</option>
+                                        <option value="luna">Luna (Female, US)</option>
+                                        <option value="orion">Orion (Male, US)</option>
+                                        <option value="arc">Arc (Male, US)</option>
+                                        <option value="helios">Helios (Male, UK)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Additional Context / Details</label>
+                                    <textarea
+                                        value={userDetails}
+                                        onChange={(e) => setUserDetails(e.target.value)}
+                                        placeholder="E.g. User lost job recently, be empathetic..."
+                                        className="w-full p-2 border border-gray-300 rounded-lg outline-none h-24 text-sm"
+                                    />
+                                </div>
                             </div>
                         </div>
 
