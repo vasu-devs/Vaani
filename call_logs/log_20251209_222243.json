@@ -1,0 +1,66 @@
+{
+  "id": "call-20251209_222243",
+  "timestamp": "20251209_222243",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "150",
+    "agent_name": "Rachel",
+    "agent_voice": "asteria",
+    "user_details": "Rude"
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Hi Vasu, this is Rachel from RiverLine.",
+      "timestamp": "2025-12-09T22:22:43.502467"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Hello. Yeah. This this is, uh, I got it. Uh, the thing is don't call me again. I've already applied for bankruptcy. I've talked to the lawyers. You cannot call me. This is harassment. You cannot do it.",
+      "timestamp": "2025-12-09T22:22:43.502467"
+    },
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "I apologize for any inconvenience, John. I see you've mentioned bankruptcy, but I want to clarify - our communication is to attempt to resolve the outstanding balance.",
+      "timestamp": "2025-12-09T22:22:43.502467"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Starting I don't I don't I won't pay. I won't pay more. Talk to my lawyer. I won't pay to you.",
+      "timestamp": "2025-12-09T22:22:43.502467"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "Yes",
+    "call_outcome": "Refusal",
+    "risk_score": 90,
+    "matrix_quadrant": "Strategic Defaulter",
+    "financial_profile": {
+      "employed": null,
+      "hardship_reason": "Bankruptcy",
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": true,
+      "attorney_represented": true,
+      "cease_and_desist": true,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": null,
+      "promised_date": null
+    },
+    "agent_notes": "Vasu explicitly stated they will not pay and claims to have filed for bankruptcy, demanding to only communicate through their lawyer.",
+    "generated_tags": [
+      "High Risk",
+      "Legal Review",
+      "DNC - Bankruptcy"
+    ]
+  },
+  "risk_score": 90,
+  "status": "completed"
+}

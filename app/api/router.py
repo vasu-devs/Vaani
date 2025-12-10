@@ -19,6 +19,8 @@ async def trigger_call(request: CallRequest):
         metadata = request.model_dump(exclude={"phone_number"})
         # Convert int/decimals to string for metadata
         metadata["debt_amount"] = str(metadata["debt_amount"])
+
+        logger.info(f"Router received metadata: {metadata}")
         
         result = await SIPHandler.trigger_call(request.phone_number, metadata)
         

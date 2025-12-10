@@ -1,0 +1,50 @@
+{
+  "id": "call-20251209_221657",
+  "timestamp": "20251209_221657",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "1500",
+    "agent_name": "Jatin",
+    "agent_voice": "orion",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Jatin",
+      "content": "Hi Vasu, this is Jatin from RiverLine.",
+      "timestamp": "2025-12-09T22:16:57.138477"
+    },
+    {
+      "role": "user",
+      "speaker": "Vasu",
+      "content": "Yeah. This is from. Yeah.",
+      "timestamp": "2025-12-09T22:16:57.138477"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "No",
+    "call_outcome": "Hangup",
+    "risk_score": 50,
+    "matrix_quadrant": "Unclear",
+    "financial_profile": {
+      "employed": null,
+      "hardship_reason": null,
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": false,
+      "attorney_represented": false,
+      "cease_and_desist": false,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": null,
+      "promised_date": null
+    },
+    "agent_notes": "Debtor did not confirm identity or provide any relevant information regarding the debt.",
+    "generated_tags": []
+  },
+  "risk_score": 50,
+  "status": "completed"
+}

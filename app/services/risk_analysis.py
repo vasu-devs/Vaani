@@ -26,7 +26,7 @@ class NegotiationDetails(BaseModel):
 
 class SherlockRiskAssessment(BaseModel):
     rpc_status: Literal["Yes", "No", "Voicemail"]
-    call_outcome: Literal["PTP", "Refusal", "Dispute", "Hangup", "Callback_Requested"]
+    call_outcome: Literal["PTP", "Refusal", "Dispute", "Hangup", "Callback_Requested", "Stall"]
     risk_score: int = Field(description="0-100 score, 100 is highest risk")
     matrix_quadrant: Literal["Strategic Defaulter", "Hardship", "Forgetful", "Broken Promise", "Unclear"]
     financial_profile: FinancialProfile
