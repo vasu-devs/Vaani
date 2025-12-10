@@ -1,109 +1,104 @@
-# 🎙️ Vaani - AI Debt Collection Command Center
+# 🎙️ Vaani (Odeon) - Intelligent Debt Collection Command Center
 
-> **Vaani** is a next-generation, voice-native AI platform designed for ethical, compliant, and efficient debt collection. It combines real-time conversational AI with risk analysis to revolutionize how financial recovery is managed.
+> **Vaani** (also known as *Odeon*) is a production-grade, voice-native AI platform designed to transform debt collection into an ethical, data-driven, and highly efficient process. By combining **LiveKit's Real-time Transport**, **Groq's Low-Latency Inference**, and **Deepgram's Voice Intelligence**, Vaani enables autonomous negotiation that feels human, compliant, and empathetic.
 
 [![Visualize in MapMyRepo](https://mapmyrepo.vasudev.live/badge.svg)](https://mapmyrepo.vasudev.live/?user=vasu-devs&repo=Vaani)
 
 ---
 
-## 🌟 Key Features
+## 🌟 Capabilities & Features
 
-### 🧠 **Intelligent Voice Agents**
-*   **Human-like Conversation:** Powered by **LiveKit Agents** and **Groq (Llama 3)**, Vaani agents negotiate naturally, handle interruptions, and adapt to user sentiment.
-*   **Low Latency:** Uses **Deepgram Nova-2** for lightning-fast Speech-to-Text (STT) and Aura for Text-to-Speech (TTS).
-*   **Configurable Personas:** Dispatch agents with different voices (Asteria, Orion) and strategies tailored to specific debtors.
+### 🧠 **Conversational Voice Intelligence**
+*   **Human-Parity Latency:** Powered by **Groq (Llama 3)** and **Deepgram Nova-2**, ensuring sub-500ms voice-to-voice response times.
+*   **Interruptibility:** Full duplex communication allows debtors to interrupt the agent naturally, just like a real phone call.
+*   **Dynamic Personas:** Dispatch agents with distinct personalities (e.g., *Rachel: Empathetic*, *Orion: Firm*) and voices (*Asteria, Luna, Arcas*) tailored to the debtor's profile.
 
-### 🛡️ **Real-time Risk & Compliance ("Sherlock")**
-*   **Live Analysis:** Every conversation is analyzed in real-time for compliance risks.
-*   **FDCPA Guardrails:** Automatically detects **Bankruptcy** mentions, **Attorney Representation**, or **Cease & Desist** requests.
-*   **Debtor Profiling:** Categorizes debtors into quadrants (e.g., *Strategic Defaulter*, *Hardship Case*) to suggest better recovery strategies.
+### 🕵️ **"Sherlock" Real-Time Risk Engine**
+Vaani doesn't just talk; it thinks. The integrated **Sherlock** engine analyzes conversations in real-time to ensure compliance and optimize recovery.
+*   **FDCPA Guardrails:** Automatically detects and handles high-risk triggers like **Bankruptcy**, **Attorney Representation**, or **Cease & Desist** requests, flagging them for human review immediately.
+*   **Matrix Profiling:** Categorizes debtors into strategic quadrants based on "Willingness" vs. "Ability" to pay:
+    *   *Strategic Defaulter* (High Ability, Low Willingness)
+    *   *Hardship Case* (Low Ability, High Willingness)
+*   **Outcome Prediction:** Instantly tags calls as *Promise to Pay (PTP)*, *Refusal*, or *Dispute*.
 
-### 💻 **Modern Command Center (Bento UI)**
-*   **Visual Dispatch:** a clean, minimalist dashboard to configure and launch calls.
-*   **Live Transcripts:** Watch the conversation unfold in a "Terminal-style" dark mode interface.
-*   **Risk Badges:** Dynamic pill indicators show call outcome (PTP - Promise to Pay, Refusal) and risk scores instantly.
-*   **History & Analytics:** Track total runs, pass rates, and average risk scores over time.
+### 💻 **The Command Center (Bento UI)**
+A modern, react-based dashboard for flight control.
+*   **Live Dispatch:** Configure debt amount, debtor details, and agent persona, then dispatch calls via SIP/VoIP.
+*   **Terminal Transcript:** Watch the conversation unfold in a hacker-style CLI interface with real-time speaker identification.
+*   **Live Risk Badges:** Dynamic pill indicators pop up instantly when risks (e.g., "Bankruptcy Detected") are identified.
+*   **Analytics Dashboard:** Track pass rates, average risk scores, and call outcomes over time.
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## 🏗️ Technical Architecture
 
-Vaani is built as a modular application with three clear layers:
+Vaani operates on a modular 3-tier architecture designed for scalability and real-time performance.
 
-### 1. **Frontend (The Command Center)**
-*   **Framework:** React + Vite
-*   **Styling:** Tailwind CSS (Custom "Modern Minimalist" / Bento Design System)
-*   **State:** Real-time polling via Axios
-*   **Visuals:** Recharts (Analytics), Lucide-React (Icons)
+### 1. **Frontend (Dashboard)**
+*   **Framework:** React 18 + Vite
+*   **Styling:** Tailwind CSS (Custom "Bento" Design System)
+*   **Networking:** Axios (Polling for state/logs)
+*   **Visualization:** Recharts (Analytics), Lucide-React (Icons)
 
-### 2. **Backend (API & State Management)**
+### 2. **Backend (Orchestrator)**
 *   **Server:** FastAPI (Python)
-*   **Endpoints:** 
-    *   `/api/call`: Dispatches the AI agent.
-    *   `/api/history`: Retrieves call logs and risk artifacts.
-*   **Storage:** Local JSON-based persistence (for portability/demo).
+*   **Role:** Manages the active call list, stores call logs, and serves the API for the frontend.
+*   **Database:** JSON-based persistence (File System) for easy portability and demo purposes.
 
-### 3. **AI Voice Server (The "Brain")**
-*   **Framework:** LiveKit Agents
-*   **LLM:** Groq (Llama-3-8b-instant / 70b)
-*   **Transcriber:** Deepgram API
-*   **Synthesizer:** Deepgram Aura
-*   **VAD:** Silero VAD (Voice Activity Detection)
+### 3. **AI Voice Worker (The Brain)**
+*   **Framework:** [LiveKit Agents](https://github.com/livekit/agents)
+*   **LLM:** **Groq** (Llama-3-70b-versatile for Risk, Llama-3-8b-instant for Chat)
+*   **STT (Ears):** **Deepgram Nova-2** (8kHz phone optimization)
+*   **TTS (Mouth):** **Deepgram Aura** (Low latency specific models)
+*   **VAD:** Silero (Voice Activity Detection)
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Installation & Setup
 
-Follow these steps to set up Vaani from scratch.
-
-### 📋 Prerequisites
+### Prerequisites
 *   **Python 3.10+**
-*   **Node.js 18+** & `npm`
-*   **LiveKit Server** (Local or Cloud project)
-*   **API Keys** for:
-    *   [LiveKit Cloud](https://cloud.livekit.io/) (URL, API Key, Secret)
-    *   [Groq](https://console.groq.com/) (API Key)
-    *   [Deepgram](https://console.deepgram.com/) (API Key)
+*   **Node.js 18+**
+*   **LiveKit Cloud Account** (or local instance)
+*   **API Keys:** Groq, Deepgram, LiveKit
 
----
-
-### ⚙️ Installation
-
-#### 1. Clone the Repository
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/vaani.git
-cd vaani
+git clone https://github.com/vasu-devs/Vaani.git
+cd Vaani
 ```
 
-#### 2. Backend & Agent Setup
-Create a virtual environment and install dependencies.
+### 2. Backend & Agent Setup
+The backend and the AI worker run in the same python environment.
 
 ```bash
-# Windows
+# Create virtual environment
 python -m venv venv
+# Activate (Windows)
 venv\Scripts\activate
+# Activate (Mac/Linux)
+source venv/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+# Note: requirements.txt may be minimal, ensure you have all core packages:
+pip install livekit-agents livekit-server-sdk livekit-plugins-groq livekit-plugins-deepgram livekit-plugins-silero python-dotenv fastapi uvicorn
 ```
 
-**Configuration:**
+**Environment Configuration:**
 Create a `.env.local` file in the root directory:
 
 ```env
-# LiveKit Configuration
+# LiveKit Config (from Cloud Project Settings)
 LIVEKIT_URL=wss://your-project.livekit.cloud
-LIVEKIT_API_KEY=your_api_key
-LIVEKIT_API_SECRET=your_api_secret
+LIVEKIT_API_KEY=API_...
+LIVEKIT_API_SECRET=Secret_...
 
 # AI Models
 GROQ_API_KEY=gsk_...
 DEEPGRAM_API_KEY=...
-
 ```
 
-#### 3. Frontend Setup
-Navigate to the frontend directory and install packages.
+### 3. Frontend Setup
 
 ```bash
 cd frontend
@@ -112,78 +107,59 @@ npm install
 
 ---
 
-## 🏃‍♂️ Running the Application
+## 🏃‍♂️ Usage Guide
 
-You will need **three** separate terminal windows to run the full stack.
+Running Vaani requires **three** concurrent terminal processes.
 
-### Terminal 1: The SIP/API Server (Backend)
-This handles the API requests from the frontend and manages the call state.
+### Terminal 1: API Server
+Starts the FastAPI backend to handle frontend requests and store logs.
 ```bash
-# In root directory
+# From root directory
 python run_server.py
 ```
-*Runs on: http://localhost:8001*
+*   *Local URL:* `http://localhost:8001`
+*   *Docs:* `http://localhost:8001/docs`
 
-### Terminal 2: The Voice Agent worker
-This connects to LiveKit and waits for a room to be created (which happens when you click "Start Call").
+### Terminal 2: AI Worker
+Connects to LiveKit and waits for a room (call) to start.
 ```bash
-# In root directory
+# From root directory
 python run_agent.py dev
 ```
+*   *Status:* Should see `Connected to LiveKit` and `Waiting for job...`
 
-### Terminal 3: The Frontend Dashboard
+### Terminal 3: Frontend
+Launches the Command Center UI.
 ```bash
-# In /frontend directory
+# From frontend/ directory
 npm run dev
 ```
-*Runs on: http://localhost:5173* (usually)
+*   *Local URL:* `http://localhost:5173`
 
 ---
 
-## 🎮 Usage Guide
+## 🎮 Workflow Demo
 
-1.  **Open the Dashboard:** Go to your frontend URL (e.g., `http://localhost:5173`).
-2.  **Configure a Call:**
-    *   **Target Number:** Enter the phone number (with country code, e.g., `+1...`) or SIP URI.
-    *   **Amount:** The debt value to collect.
-    *   **Persona:** Choose an Agent (e.g., "Rachel") and Voice (e.g., "Asteria").
-    *   **Context:** Add specific notes (e.g., "Debtor lost job recently").
-3.  **Dispatch:** Click the black **"START CALL"** button.
-4.  **Monitor:**
-    *   The "Terminal" card on the right will show the **Live Transcript**.
-    *   Watch the **Risk Badges** appear in real-time as the AI analyzes the user's intent.
-    *   The **Stats Grid** will update automatically after the call.
-
----
-
-## 📂 Project Structure
-
-```
-vaani/
-├── app/
-│   ├── api/            # FastAPI routes (server.py)
-│   ├── services/       # Core Logic
-│   │   ├── risk_analysis.py  # "Sherlock" Risk Engine
-│   │   └── voice_agent.py    # LiveKit Agent Definition
-│   └── state/          # JSON file handling (simple DB)
-├── frontend/           # React Application
-│   ├── src/
-│   │   └── App.jsx     # Main Dashboard UI
-│   └── public/         # Static assets (Favicon)
-├── call_logs/          # Stored JSON logs of calls
-├── run_server.py       # Entry point for API
-├── run_agent.py        # Entry point for Agent
-└── requirements.txt    # Python Dependencies
-```
+1.  **Launch:** Open the frontend at `localhost:5173`.
+2.  **Config:** Enter the target phone number (SIP URI or PSTN if configured) and the debt amount.
+3.  **Dispatch:** Click **"START CALL"**.
+    *   *Behind the scenes:* The frontend calls the API -> API creates a token -> LiveKit triggers the Agent -> Agent dials out (or waits for join).
+4.  **Visualize:**
+    *   Observe the **Transcript** printing in real-time.
+    *   See **Risk Badges** appear (e.g., if you say "I'm bankrupt").
+    *   Watch the **Call Outcome** update automatically when the call ends.
 
 ---
 
 ## ⚠️ Troubleshooting
 
-*   **"Connection Refused"**: Ensure the backend server is running on port 8001.
-*   **"Agent not joining"**: Check your LiveKit credentials in `.env.local` and ensure `run_agent.py` shows "Connected to LiveKit".
-*   **"No Audio"**: If testing cleanly, ensure your machine's microphone permissions are allowed for the browser or SIP client.
+| Issue | Solution |
+| :--- | :--- |
+| **Connection Refused (Frontend)** | Ensure `run_server.py` is running on port 8001. |
+| **Agent Not Joining** | Check `.env.local` credentials. Ensure you are running `python run_agent.py dev`. |
+| **Import Error: fasting/uvicorn** | Run the detailed pip install command in the Setup section above. |
+| **No Audio** | Check your Deepgram API key credits and ensure your mic is enabled if testing locally. |
 
 ---
 
-**Vaani** — *Redefining Debt Recovery with Empathy & Intelligence.*
+**Built with 🖤 by Vasudev.**
