@@ -1,6 +1,6 @@
 # 🎙️ Vaani - AI Debt Collection Command Center
 
-> **Vaani** is a next-generation, voice-native AI platform designed for ethical, compliant, and efficient debt collection. It combines real-time conversational AI, risk analysis, and a modern "Bento-style" command center to revolutionize how financial recovery is managed.
+> **Vaani** is a next-generation, voice-native AI platform designed for ethical, compliant, and efficient debt collection. It combines real-time conversational AI with risk analysis to revolutionize how financial recovery is managed.
 
 [![Visualize in MapMyRepo](https://mapmyrepo.vasudev.live/badge.svg)](https://mapmyrepo.vasudev.live/?user=vasu-devs&repo=Vaani)
 
