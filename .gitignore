@@ -4,5 +4,10 @@ node_modules
 .venv310
 node_modules
 demo/Vaani.mp4
-backend\__pycache__
-backend\call_logs
+backend\__pycache__git add .gitignore
+git commit -m "Ignore binaries and generated files"
+git push
+
+node_modules/
+*.mp4
+backend/call_logs/
