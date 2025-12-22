@@ -5,15 +5,13 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue?style=for-the-badge&logo=python)](https://www.python.org/)
 [![React Version](https://img.shields.io/badge/react-18-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
+[![LiveKit](https://img.shields.io/badge/LiveKit-Agents-orange?style=for-the-badge)](https://livekit.io/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Status](https://img.shields.io/badge/status-active-success?style=for-the-badge)]()
-[![Visualize](https://mapmyrepo.vasudev.live/badge.svg)](https://mapmyrepo.vasudev.live/?user=vasu-devs&repo=Vaani)
-
-
 
 **Vaani** is a production-grade, voice-native AI platform that redefines debt recovery. By fusing **LiveKit's** real-time transport with **Groq's** lightning-fast inference and **Deepgram's** voice intelligence, Vaani creates an autonomous negotiator that is ethical, compliant, and startlingly human.
 
-[Features](#-capabilities) • [Architecture](#-technical-architecture) • [Call Flow](#-how-it-works) • [Installation](#-installation--setup) • [Usage](#-usage-guide)
+[features](#-capabilities) • [architecture](#-technical-architecture) • [call-flow](#-how-it-works) • [installation](#-installation--setup) • [usage](#-usage-guide)
 
 </div>
 
@@ -34,8 +32,8 @@ Vaani doesn't just talk; it **analyzes**. The integrated "Sherlock" engine monit
 *   **Matrix Profiling:** Classifies debtors into strategic quadrants (e.g., *Hardship Case* vs *Strategic Defaulter*).
 *   **Live Tags:** Autonomously tags calls as *Promise to Pay (PTP)*, *Refusal*, or *Dispute*.
 
-### 💻 **The Command Center (Bento UI)**
-*   **Hacker-Style Terminal:** Watch the live transcript unfold in a cinematic, dark-mode CLI interface.
+### 💻 **The Command Center**
+*   **Dark Mode CLI Interface:** Watch the live transcript unfold in a cinematic, hacker-style terminal.
 *   **Real-time Visualization:** Risk badges pop up instantly as the AI detects intent.
 *   **Analytics:** Track recovery rates and risk scores across thousands of calls.
 
@@ -48,8 +46,8 @@ Vaani operates on a high-performance, modular 3-tier architecture.
 | Component | Technology Stack | Purpose |
 | :--- | :--- | :--- |
 | **Frontend** | React 18, Vite, Tailwind CSS | The "Mission Control" dashboard for dispatch and monitoring. |
-| **Backend** | Python, FastAPI | Orchestrates calls, manages state, and serves API endpoints. |
-| **AI Worker** | LiveKit Agents, Groq, Deepgram | The "Brain" that connects to the audio stream and generates speech. |
+| **Backend API** | Python, FastAPI | Orchestrates calls, manages `sip_handler`, and serves API endpoints. |
+| **Voice Agent** | LiveKit Agents, Groq, Deepgram | The "Brain" that connects to the audio stream and generates speech. |
 
 ---
 
@@ -85,7 +83,7 @@ sequenceDiagram
 ## 🚀 Installation & Setup
 
 ### Prerequisites
-*   **Python 3.10+**
+*   **Python 3.10+** (Essential - 3.13 is NOT supported yet)
 *   **Node.js 18+**
 *   **LiveKit Cloud Account**
 *   **API Keys:** Groq, Deepgram, LiveKit
@@ -96,21 +94,8 @@ git clone https://github.com/vasu-devs/Vaani.git
 cd Vaani
 ```
 
-### 2. Backend & Agent Setup
-```bash
-# Create and activate virtual environment
-python -m venv venv
-# Windows:
-venv\Scripts\activate
-# Mac/Linux:
-source venv/bin/activate
-
-# Install dependencies
-pip install livekit-agents livekit-server-sdk livekit-plugins-groq livekit-plugins-deepgram livekit-plugins-silero python-dotenv fastapi uvicorn
-```
-
-**Environment Configuration:**
-Create a `.env.local` file in the root directory:
+### 2. Configure Environment
+Create a `.env.local` file in the `backend/` directory (or root, the runner handles it):
 
 ```env
 # LiveKit Config
@@ -121,39 +106,56 @@ LIVEKIT_API_SECRET=Secret_...
 # AI Models
 GROQ_API_KEY=gsk_...
 DEEPGRAM_API_KEY=...
+
+# Telephony (Optional)
+SIP_OUTBOUND_TRUNK_ID=ST_...
 ```
 
-### 3. Frontend Setup
+### 3. Quick Start (Recommended)
+We provide a unified runner to handle everything.
+
 ```bash
+# 1. Install Backend Dependencies
+# Note: Ensure you are using Python 3.10/3.11/3.12
+pip install -r backend/requirements.txt
+
+# 2. Install Frontend Dependencies
 cd frontend
 npm install
+cd ..
+
+# 3. RUN!
+python dev.py
 ```
+
+This will launch:
+*   **API Server:** http://localhost:8001
+*   **Frontend:** http://localhost:5173
+*   **Agent Worker:** Background process
 
 ---
 
-## 🏃‍♂️ Usage Guide
+## 📂 Project Structure
 
-Running Vaani requires **three** concurrent terminal processes.
-
-### Terminal 1: API Server
-```bash
-# Root directory
-python run_server.py
+```text
+Vaani/
+├── backend/                # Python Server & Agent Code
+│   ├── app/                # Main Application Logic
+│   │   ├── api/            # FastAPI Routes
+│   │   ├── services/       # Business Logic (SIP, Agents)
+│   │   └── core/           # Config & Utils
+│   ├── run_agent.py        # Worker Entrypoint
+│   ├── run_server.py       # API Entrypoint
+│   └── requirements.txt    # Python Deps
+│
+├── frontend/               # React Application
+│   ├── src/
+│   │   ├── components/     # UI Components (Sidebar, Terminal...)
+│   │   └── App.jsx         # Main View
+│   └── package.json        # JS Deps
+│
+└── dev.py                  # Unified Development Runner
 ```
-
-### Terminal 2: AI Worker
-```bash
-# Root directory
-python run_agent.py dev
-```
-
-### Terminal 3: Frontend
-```bash
-# /frontend directory
-npm run dev
-```
-
-Open `http://localhost:5173` to access the Command Center.
 
 ---
 
@@ -161,9 +163,10 @@ Open `http://localhost:5173` to access the Command Center.
 
 | Issue | Solution |
 | :--- | :--- |
-| **Connection Refused** | Ensure `run_server.py` is running on port 8001. |
-| **Agent Not Joining** | Check `.env.local` credentials. Run `run_agent.py` in `dev` mode. |
-| **No Audio** | Check Deepgram credits. If local, check mic permissions. |
+| **ImportError: cannot import name 'api' from 'livekit'** | Ensure you have installed `livekit-api` and NOT `livekit-server-sdk`. Check `backend/requirements.txt`. |
+| **Agent Not Joining** | Check `.env.local` credentials. Run `python backend/run_agent.py dev` manually to see logs. |
+| **No Audio** | Verify you have `livekit-plugins-deepgram` and `livekit-plugins-groq` installed. |
+| **Python Version Error** | LiveKit SDK currently requires Python < 3.13. Use Python 3.10, 3.11, or 3.12. |
 
 ---
 
