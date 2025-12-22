@@ -133,6 +133,26 @@ This will launch:
 *   **Frontend:** http://localhost:5173
 *   **Agent Worker:** Background process
 
+### 4. 🚀 Deployment (DigitalOcean / Railway / Render)
+
+We have included `Dockerfile`s to make deployment easy.
+
+#### DigitalOcean App Platform (Recommended)
+1.  Fork this repo.
+2.  Create a new **App** in DigitalOcean.
+3.  **Service 1 (API):** Select `backend/Dockerfile`. Port `8000`. 
+    *   Command: `python -m uvicorn run_server:app --host 0.0.0.0 --port 8000`
+4.  **Service 2 (Agent):** Add a component. Select `backend/Dockerfile`. Type: **Worker**.
+    *   Command: `python run_agent.py start`
+5.  **Service 3 (Frontend):** Add a component. Select `frontend/Dockerfile`. Port `80`.
+6.  **Environment Variables:** Copy your `.env.local` to the App-Level Environment Variables.
+
+#### Local Production Test
+To verify the production build on your machine:
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
 ---
 
 ## 📂 Project Structure

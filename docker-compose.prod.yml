@@ -1,0 +1,37 @@
+services:
+  # 1. API Server
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # Use uvicorn directly for production (no reload, port 8000)
+    command: python -m uvicorn run_server:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env.local
+
+  # 2. Agent Worker (Background Process)
+  agent:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # "start" command is required for production
+    command: python run_agent.py start
+    restart: always
+    env_file:
+      - ./backend/.env.local
+    deploy:
+      resources:
+        limits:
+          memory: 4096M # AI Agents need RAM
+
+  # 3. Frontend (Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
