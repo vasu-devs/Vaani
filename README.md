@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎙️ Vaani (Odeon)
+# 🎙️ Vaani 
 ### Intelligent Debt Collection Command Center
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue?style=for-the-badge&logo=python)](https://www.python.org/)
