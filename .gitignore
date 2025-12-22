@@ -3,3 +3,6 @@
 node_modules
 .venv310
 node_modules
+demo/Vaani.mp4
+backend\__pycache__
+backend\call_logs

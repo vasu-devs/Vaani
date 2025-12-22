@@ -1,0 +1,44 @@
+{
+  "id": "call-20251222_225936",
+  "timestamp": "20251222_225936",
+  "metadata": {
+    "debtor_name": "Vasu",
+    "debt_amount": "1500",
+    "agent_name": "Rachel",
+    "agent_voice": "asteria",
+    "user_details": ""
+  },
+  "transcript": [
+    {
+      "role": "assistant",
+      "speaker": "Rachel",
+      "content": "Hi Vasu, this is Rachel from RiverLine.",
+      "timestamp": "2025-12-22T22:59:36.984522"
+    }
+  ],
+  "risk_analysis": {
+    "rpc_status": "No",
+    "call_outcome": "Hangup",
+    "risk_score": 50,
+    "matrix_quadrant": "Unclear",
+    "financial_profile": {
+      "employed": null,
+      "hardship_reason": null,
+      "payment_method_mentioned": "None"
+    },
+    "legal_flags": {
+      "bankruptcy_risk": false,
+      "attorney_represented": false,
+      "cease_and_desist": false,
+      "dispute_raised": false
+    },
+    "negotiation_details": {
+      "promised_amount": null,
+      "promised_date": null
+    },
+    "agent_notes": "The debtor hung up immediately after the introduction and no further analysis could be performed.",
+    "generated_tags": []
+  },
+  "risk_score": 50,
+  "status": "completed"
+}
