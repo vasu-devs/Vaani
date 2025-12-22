@@ -1,0 +1,11 @@
+livekit-agents
+livekit
+livekit-api
+livekit-plugins-openai
+livekit-plugins-silero
+livekit-plugins-deepgram
+livekit-plugins-groq
+python-dotenv
+fastapi
+uvicorn
+python-multipart
