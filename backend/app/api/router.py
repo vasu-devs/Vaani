@@ -2,12 +2,16 @@ import glob
 import json
 import os
 import logging
+from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from app.api.schemas import CallRequest, CallResponse
 from app.services.sip_handler import SIPHandler
 
 router = APIRouter()
 logger = logging.getLogger("debt-collector.api")
+
+# Resolve call_logs relative to the backend directory, not cwd
+_CALL_LOGS_DIR = Path(__file__).resolve().parent.parent.parent / "call_logs"
 
 @router.post("/call", response_model=CallResponse)
 async def trigger_call(request: CallRequest):
@@ -40,9 +44,9 @@ async def get_history():
     Returns list of call logs.
     """
     logs = []
-    # Assumes call_logs is in root
-    log_files = glob.glob("call_logs/*.json")
-    log_files.sort(key=os.path.getmtime, reverse=True)
+    if not _CALL_LOGS_DIR.exists():
+        return logs
+    log_files = sorted(_CALL_LOGS_DIR.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
     
     for log_file in log_files:
         try:
@@ -51,14 +55,20 @@ async def get_history():
                 metadata = data.get("metadata", {})
                 debtor = metadata.get("debtor_name") or data.get("debtor_name") or "John Doe"
 
+                # Extract call_outcome from risk_analysis if present
+                risk_analysis = data.get("risk_analysis", {})
+                call_outcome = risk_analysis.get("call_outcome") if isinstance(risk_analysis, dict) else None
+
                 logs.append({
                     "id": data.get("id"),
                     "timestamp": data.get("timestamp"),
                     "risk_score": data.get("risk_score"),
                     "status": data.get("status"),
-                    "debtor_name": debtor
+                    "debtor_name": debtor,
+                    "call_outcome": call_outcome
                 })
-        except:
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning(f"Skipping corrupt log file {log_file}: {e}")
             continue
     return logs
 
@@ -69,13 +79,13 @@ async def get_log(log_id: str):
     Expects log_id to partially match filename or be the ID.
     """
     timestamp = log_id.replace("call-", "")
-    filename = f"call_logs/log_{timestamp}.json"
+    filename = _CALL_LOGS_DIR / f"log_{timestamp}.json"
     
-    if not os.path.exists(filename):
-         matches = glob.glob(f"call_logs/*{timestamp}*.json")
-         if matches:
-             filename = matches[0]
-         else:
+    if not filename.exists():
+        matches = list(_CALL_LOGS_DIR.glob(f"*{timestamp}*.json"))
+        if matches:
+            filename = matches[0]
+        else:
             raise HTTPException(status_code=404, detail="Log not found")
             
     with open(filename, "r") as f:

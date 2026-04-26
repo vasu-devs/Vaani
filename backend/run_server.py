@@ -1,6 +1,17 @@
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import router
+from app.core.config import Config
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s: %(message)s")
+logger = logging.getLogger("debt-collector.server")
+
+# Validate config at startup — warn but don't crash (agent subprocess may set env later)
+try:
+    Config.validate()
+except ValueError as e:
+    logger.warning(f"Config validation: {e}")
 
 app = FastAPI(title="Vaani Debt Collector API")
 

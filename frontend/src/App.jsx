@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FileText, AlertTriangle, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 import Sidebar from './components/Sidebar';
@@ -6,8 +6,8 @@ import StatsCard from './components/StatsCard';
 import HistoryList from './components/HistoryList';
 import LogTerminal from './components/LogTerminal';
 
-// Configure axios base URL
-axios.defaults.baseURL = 'http://localhost:8001';
+// Configure axios base URL — reads from env with fallback
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
 
 function App() {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -20,15 +20,9 @@ function App() {
 
     const [logs, setLogs] = useState([]);
     const [selectedLog, setSelectedLog] = useState(null);
-    const [stats, setStats] = useState({ totalCalls: 0, avgRisk: 0, passRate: 0 });
+    const [stats, setStats] = useState({ totalCalls: 0, avgRisk: 0, passRate: '0%' });
 
-    useEffect(() => {
-        fetchHistory();
-        const interval = setInterval(fetchHistory, 5000);
-        return () => clearInterval(interval);
-    }, []);
-
-    const fetchHistory = async () => {
+    const fetchHistory = useCallback(async () => {
         try {
             const res = await axios.get('/api/history');
             setLogs(res.data);
@@ -46,13 +40,12 @@ function App() {
                 passRate: total ? Math.round((passed / total) * 100) + '%' : '0%'
             });
 
-            // FIX: Auto-update selected log if meaningful data changed (Real-time badges)
+            // Auto-update selected log if meaningful data changed (Real-time badges)
             setSelectedLog(prev => {
                 if (!prev) return null;
                 const freshLog = res.data.find(l => l.id === prev.id);
 
                 if (freshLog) {
-                    // Check for changes in Risk, Outcome, or Flags
                     const hasChanged =
                         freshLog.risk_score !== prev.risk_score ||
                         freshLog.call_outcome !== prev.call_outcome ||
@@ -60,24 +53,37 @@ function App() {
                         freshLog.matrix_quadrant !== prev.matrix_quadrant;
 
                     if (hasChanged) {
-                        return freshLog; // Update view silently
+                        return freshLog;
                     }
                 }
-                return prev; // Keep existing state if no change
+                return prev;
             });
 
         } catch (err) {
             console.error("Failed to fetch history", err);
         }
-    };
+    }, []);
 
-    const handleCall = async (e) => {
+    useEffect(() => {
+        fetchHistory();
+        const interval = setInterval(fetchHistory, 5000);
+        return () => clearInterval(interval);
+    }, [fetchHistory]);
+
+    const handleCall = useCallback(async (e) => {
         e.preventDefault();
+
+        const parsedAmount = parseFloat(debtAmount);
+        if (Number.isNaN(parsedAmount) || parsedAmount <= 0) {
+            alert("Please enter a valid debt amount.");
+            return;
+        }
+
         setIsCalling(true);
         try {
             await axios.post('/api/call', {
                 phone_number: phoneNumber,
-                debt_amount: parseInt(debtAmount),
+                debt_amount: parsedAmount,
                 debtor_name: debtorName,
                 agent_name: agentName,
                 agent_voice: agentVoice,
@@ -85,20 +91,32 @@ function App() {
             });
             alert(`Calling ${phoneNumber} as ${agentName}... Check logs shortly.`);
         } catch (err) {
-            alert("Failed to trigger call: " + err.message);
+            const detail = err.response?.data?.detail;
+            alert("Failed to trigger call: " + (detail || err.message));
         } finally {
             setIsCalling(false);
         }
-    };
+    }, [phoneNumber, debtAmount, debtorName, agentName, agentVoice, userDetails]);
 
-    const viewLog = async (id) => {
+    const viewLog = useCallback(async (id) => {
         try {
             const res = await axios.get(`/api/logs/${id}`);
-            setSelectedLog(res.data);
+            const data = res.data;
+
+            // Flatten risk_analysis fields to top level for LogTerminal compatibility
+            if (data.risk_analysis) {
+                const ra = data.risk_analysis;
+                data.call_outcome = data.call_outcome || ra.call_outcome;
+                data.legal_flags = data.legal_flags || ra.legal_flags;
+                data.matrix_quadrant = data.matrix_quadrant || ra.matrix_quadrant;
+                data.risk_score = data.risk_score ?? ra.risk_score;
+            }
+
+            setSelectedLog(data);
         } catch (err) {
-            console.error(err);
+            console.error("Failed to load log:", err);
         }
-    };
+    }, []);
 
     return (
         <div className="flex h-screen bg-[#F3F4F6] text-gray-900 font-sans p-4 gap-4 overflow-hidden selection:bg-black/10">

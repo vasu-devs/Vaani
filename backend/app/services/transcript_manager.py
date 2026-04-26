@@ -3,10 +3,13 @@ import json
 import logging
 import asyncio
 from datetime import datetime
+from pathlib import Path
 from livekit.agents.voice import Agent as VoicePipelineAgent
 from app.services.risk_analysis import RiskAnalyzer
 
 logger = logging.getLogger("debt-collector.transcript")
+
+_CALL_LOGS_DIR = Path(__file__).resolve().parent.parent.parent / "call_logs"
 
 class TranscriptManager:
     def __init__(self):
@@ -23,35 +26,39 @@ class TranscriptManager:
         self._is_saved = True
         
         try:
-            os.makedirs("call_logs", exist_ok=True)
+            _CALL_LOGS_DIR.mkdir(parents=True, exist_ok=True)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"call_logs/log_{timestamp}.json"
+            filename = _CALL_LOGS_DIR / f"log_{timestamp}.json"
             
             transcript = []
             full_text = []
             
-            # Access messages
+            # Access messages — v1.5+ uses items (list) or messages() (method)
             messages = []
-            if hasattr(chat_ctx, "messages"):
-                messages = chat_ctx.messages
+            if hasattr(chat_ctx, "items") and isinstance(chat_ctx.items, list):
+                messages = chat_ctx.items
+            elif hasattr(chat_ctx, "messages"):
+                msgs = chat_ctx.messages
+                messages = msgs() if callable(msgs) else msgs
             elif hasattr(chat_ctx, "_items"):
                 messages = chat_ctx._items
             else:
                 try:
                     messages = list(chat_ctx)
-                except:
-                    logger.warning("Could not extract messages from ChatContext")
+                except TypeError as e:
+                    logger.warning(f"Could not extract messages from ChatContext: {e}")
             
             for msg in messages:
                 role = getattr(msg, "role", "unknown")
-                content = getattr(msg, "content", "")
+                # v1.5+ stores content as list; text_content gives the string
+                content = getattr(msg, "text_content", None) or getattr(msg, "content", "")
                 if isinstance(content, list):
                     content = " ".join([str(c) for c in content])
                 
                 # Map roles to human-readable names
                 speaker = str(role)
-                if role == "system":
-                    continue # Skip system prompt in saved transcript log
+                if role in ("system", "unknown") or not content or not content.strip():
+                    continue # Skip system prompt and empty/unknown entries
                 elif role == "user":
                     speaker = metadata.get("debtor_name", "Defaulter")
                 elif role == "assistant":

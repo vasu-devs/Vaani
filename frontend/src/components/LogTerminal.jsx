@@ -1,6 +1,12 @@
 import React from 'react';
 
 const LogTerminal = ({ selectedLog }) => {
+    // Resolve risk fields from top-level or nested risk_analysis
+    const riskScore = selectedLog?.risk_score ?? selectedLog?.risk_analysis?.risk_score;
+    const legalFlags = selectedLog?.legal_flags || selectedLog?.risk_analysis?.legal_flags;
+    const callOutcome = selectedLog?.call_outcome || selectedLog?.risk_analysis?.call_outcome;
+    const matrixQuadrant = selectedLog?.matrix_quadrant || selectedLog?.risk_analysis?.matrix_quadrant;
+
     return (
         <div className="flex-1 bg-[#111] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden text-gray-300 relative">
 
@@ -21,31 +27,31 @@ const LogTerminal = ({ selectedLog }) => {
             {/* Sticky Risk Badges (Dark Mode Style) */}
             {selectedLog && (
                 <div className="px-8 py-4 bg-[#111]/90 backdrop-blur-sm border-b border-white/5 z-10 flex flex-wrap gap-3 items-center">
-                    {selectedLog.risk_score > 85 && (
+                    {riskScore > 85 && (
                         <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-red-500 text-white animate-pulse shadow-red-500/20 shadow-lg">
                             CRITICAL RISK
                         </span>
                     )}
-                    {selectedLog.legal_flags?.bankruptcy_risk && (
+                    {legalFlags?.bankruptcy_risk && (
                         <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-red-400 border border-white/5">
                             BANKRUPTCY
                         </span>
                     )}
-                    {selectedLog.legal_flags?.attorney_represented && (
+                    {legalFlags?.attorney_represented && (
                         <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-orange-400 border border-white/5">
                             ATTORNEY REP
                         </span>
                     )}
-                    {selectedLog.call_outcome && (
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold bg-white/10 border border-white/5 ${selectedLog.call_outcome === 'PTP' ? 'text-green-400' :
-                            selectedLog.call_outcome === 'Refusal' ? 'text-red-400' : 'text-gray-300'
+                    {callOutcome && (
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold bg-white/10 border border-white/5 ${callOutcome === 'PTP' ? 'text-green-400' :
+                            callOutcome === 'Refusal' ? 'text-red-400' : 'text-gray-300'
                             }`}>
-                            {selectedLog.call_outcome}
+                            {callOutcome}
                         </span>
                     )}
-                    {selectedLog.matrix_quadrant && (
+                    {matrixQuadrant && (
                         <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/5 text-blue-400 border border-white/5">
-                            {selectedLog.matrix_quadrant}
+                            {matrixQuadrant}
                         </span>
                     )}
                 </div>
@@ -63,7 +69,7 @@ const LogTerminal = ({ selectedLog }) => {
                 {selectedLog?.transcript?.map((msg, idx) => (
                     <div key={idx} className="flex gap-6 group hover:bg-white/[0.02] -mx-4 px-4 py-2 rounded-xl transition-colors">
                         <div className={`w-24 text-right font-mono text-xs pt-1 uppercase tracking-wider ${msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'text-indigo-400' : 'text-emerald-400'}`}>
-                            {msg.speaker || (msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'AI_AGENT' : 'CUSTOMER')}
+                            {msg.speaker || (msg.role === 'ChatRole.AGENT' || msg.role === 'assistant' ? 'AI_AGENT' : msg.role === 'ChatRole.USER' || msg.role === 'user' ? 'CUSTOMER' : msg.role)}
                         </div>
                         <div className="flex-1 text-gray-300 text-base font-light leading-relaxed">
                             {msg.content}

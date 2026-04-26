@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 from livekit import api
+from google.protobuf.duration_pb2 import Duration
 from app.core.config import Config
 
 logger = logging.getLogger("debt-collector.sip")
@@ -55,7 +56,12 @@ class SIPHandler:
                 room_name=room_name,
                 sip_trunk_id=Config.SIP_OUTBOUND_TRUNK_ID,
                 sip_call_to=phone_number,
+                sip_caller_id=Config.SIP_CALLER_ID,
                 participant_identity=f"user-{phone_number}",
+                play_dialtone=True,
+                play_ringtone=True,
+                ringing_timeout=Duration(seconds=45),
+                max_call_duration=Duration(seconds=300),
             )
             
             participant = await lk_api.sip.create_sip_participant(req)

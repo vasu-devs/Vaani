@@ -26,7 +26,7 @@ class NegotiationDetails(BaseModel):
 
 class SherlockRiskAssessment(BaseModel):
     rpc_status: Literal["Yes", "No", "Voicemail"]
-    call_outcome: Literal["PTP", "Refusal", "Dispute", "Hangup", "Callback_Requested", "Stall"]
+    call_outcome: Literal["PTP", "Refusal", "Dispute", "Hangup", "Callback_Requested", "Stall", "Error"]
     risk_score: int = Field(description="0-100 score, 100 is highest risk")
     matrix_quadrant: Literal["Strategic Defaulter", "Hardship", "Forgetful", "Broken Promise", "Unclear"]
     financial_profile: FinancialProfile
@@ -162,8 +162,25 @@ Return a valid JSON object with no markdown formatting. The JSON must match this
         except Exception as e:
             logger.error(f"Sherlock Analysis Failed: {e}")
             return {
-                "risk_score": 50, 
-                "agent_notes": f"Analysis Failed: {str(e)}", 
+                "rpc_status": "No",
                 "call_outcome": "Error",
-                "matrix_quadrant": "Unclear"
+                "risk_score": 50,
+                "matrix_quadrant": "Unclear",
+                "financial_profile": {
+                    "employed": None,
+                    "hardship_reason": None,
+                    "payment_method_mentioned": "None"
+                },
+                "legal_flags": {
+                    "bankruptcy_risk": False,
+                    "attorney_represented": False,
+                    "cease_and_desist": False,
+                    "dispute_raised": False
+                },
+                "negotiation_details": {
+                    "promised_amount": None,
+                    "promised_date": None
+                },
+                "agent_notes": f"Analysis Failed: {str(e)}",
+                "generated_tags": []
             }

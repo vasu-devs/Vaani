@@ -20,8 +20,8 @@ const HistoryList = ({ logs, viewLog, selectedLog }) => {
                                 Risk {log.risk_score}
                             </span>
                         </div>
-                        <div className={`text-xs font-medium flex justify-between ${selectedLog?.id === log.id ? 'text-gray-400' : 'text-gray-400'}`}>
-                            <span>#{log.id.split('_')[1]}</span>
+                        <div className="text-xs font-medium flex justify-between text-gray-400">
+                            <span>#{log.id?.split('_')[1] || log.id}</span>
                             <span>{formatCallIdDate(log.id)}</span>
                         </div>
                     </div>

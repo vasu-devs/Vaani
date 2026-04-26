@@ -1,8 +1,11 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env file
-load_dotenv(dotenv_path=".env.local")
+# Load .env file — resolve relative to this file's location (backend/)
+# config.py is at backend/app/core/config.py → need 3 levels up to reach backend/
+_BACKEND_DIR = Path(__file__).resolve().parent.parent.parent
+load_dotenv(dotenv_path=_BACKEND_DIR / ".env.local")
 load_dotenv()
 
 class Config:
@@ -13,6 +16,7 @@ class Config:
     
     # SIP / Telephony
     SIP_OUTBOUND_TRUNK_ID = os.getenv("SIP_OUTBOUND_TRUNK_ID")
+    SIP_CALLER_ID = os.getenv("SIP_CALLER_ID")  # E.164 Twilio number, e.g. +12345678900
     
     # AI Models
     DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
@@ -29,5 +33,6 @@ class Config:
         if missing:
             raise ValueError(f"Missing required environment variables: {', '.join(missing)}")
 
-# Validate on import (optional, can be explicit)
+# Validate on import is disabled — LiveKit CLI forks worker subprocesses
+# where env vars may not be available. Call Config.validate() explicitly instead.
 # Config.validate()

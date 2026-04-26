@@ -1,13 +1,12 @@
 .env.local
 .venv
-node_modules
 .venv310
-node_modules
-demo/Vaani.mp4
-backend\__pycache__git add .gitignore
-git commit -m "Ignore binaries and generated files"
-git push
-
 node_modules/
+demo/Vaani.mp4
 *.mp4
+backend/__pycache__/
+backend/app/**/__pycache__/
 backend/call_logs/
+frontend/dist/
+__pycache__/
+*.pyc

@@ -66,7 +66,7 @@ const Sidebar = ({
 
                     <div className="pt-2 space-y-5">
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-gray-500 ml-1">AGENT PERONA</label>
+                            <label className="text-xs font-bold text-gray-500 ml-1">AGENT PERSONA</label>
                             <div className="grid grid-cols-2 gap-2">
                                 <input
                                     type="text"
@@ -109,7 +109,14 @@ const Sidebar = ({
             </div>
 
             <div className="mt-auto">
-                <button className="flex items-center justify-center gap-2 text-xs font-bold text-red-500 hover:text-red-600 hover:bg-red-50 py-3 rounded-xl w-full transition-colors">
+                <button
+                    onClick={() => {
+                        if (window.confirm('Are you sure you want to reset all systems?')) {
+                            window.location.reload();
+                        }
+                    }}
+                    className="flex items-center justify-center gap-2 text-xs font-bold text-red-500 hover:text-red-600 hover:bg-red-50 py-3 rounded-xl w-full transition-colors"
+                >
                     <StopCircle className="w-4 h-4" /> STOP ALL SYSTEMS
                 </button>
             </div>

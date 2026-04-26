@@ -6,6 +6,7 @@ livekit-plugins-silero
 livekit-plugins-deepgram
 livekit-plugins-groq
 python-dotenv
+pydantic
 fastapi
 uvicorn
 python-multipart
